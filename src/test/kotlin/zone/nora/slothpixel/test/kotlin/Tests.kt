@@ -5,5 +5,5 @@ import zone.nora.slothpixel.Slothpixel
 fun main() {
     val yea = Slothpixel().getPlayer("bspwm")
 
-    println("Discord: ${yea.links.discord}")
+    println("Discord: ${yea.stats}")
 }

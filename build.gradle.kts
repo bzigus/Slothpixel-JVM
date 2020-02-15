@@ -15,7 +15,6 @@ dependencies {
 
     implementation("com.google.code.gson", "gson", "2.8.5")
 
-    compileOnly("org.projectlombok", "lombok", "1.16.18")
     testCompile("junit", "junit", "4.12")
 }
 

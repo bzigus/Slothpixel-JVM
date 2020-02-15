@@ -1,12 +1,10 @@
 package zone.nora.slothpixel.player
 
 import com.google.gson.annotations.SerializedName
-import lombok.Getter
 import zone.nora.slothpixel.player.links.Links
 import zone.nora.slothpixel.player.rewards.Rewards
 import zone.nora.slothpixel.player.stats.Stats
 
-@Getter
 class Player {
     @SerializedName("uuid")
     val uuid = ""

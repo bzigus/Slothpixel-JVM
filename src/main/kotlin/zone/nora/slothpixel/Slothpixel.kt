@@ -12,11 +12,15 @@ import java.net.URL
 import java.net.URLConnection
 import java.util.*
 
-
+/*
+ * Created by Nora Cos on 14/02/20.
+ * Last modified 15/02/20.
+ */
 class Slothpixel {
     private val url = "https://api.slothpixel.me/api"
 
-    fun getPlayer(name: String): Player {
+    fun getPlayer(nameOrUUID: String): Player {
+        val name = nameOrUUID.replace("-", "")
         val gson = Gson()
         val url = "$url/players/$name"
         val json: JsonObject = readJsonUrl(url)
@@ -25,8 +29,8 @@ class Slothpixel {
         return gson.fromJson<Player>(json, Player::class.java)
     }
 
-    fun getPlayer(uuid: UUID) {
-
+    fun getPlayer(uuid: UUID): Player {
+        return getPlayer(uuid.toString())
     }
 
     @Throws(IOException::class)
@@ -36,7 +40,7 @@ class Slothpixel {
     }
 
     @Throws(IOException::class)
-    fun getPage(url: String): String {
+    private fun getPage(url: String): String {
         val url1 = URL(url)
         val conn: URLConnection = url1.openConnection()
         conn.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 5.1; rv:19.0) Gecko/20100101 Firefox/19.0")

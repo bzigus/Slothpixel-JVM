@@ -1,9 +1,7 @@
 package zone.nora.slothpixel.player.links
 
 import com.google.gson.annotations.SerializedName
-import lombok.Getter
 
-@Getter
 class Links {
     @SerializedName("TWITTER")
     val twitter = ""

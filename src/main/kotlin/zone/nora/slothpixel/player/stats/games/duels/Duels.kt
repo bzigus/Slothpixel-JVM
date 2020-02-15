@@ -1,10 +1,8 @@
-package zone.nora.slothpixel.player.stats.modes
+package zone.nora.slothpixel.player.stats.games.duels
 
 import com.google.gson.annotations.SerializedName
-import lombok.Getter
 
-@Getter
-class Warlords {
+class Duels {
     @SerializedName("coins")
     val coins = 0
 }

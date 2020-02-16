@@ -37,6 +37,7 @@ import com.google.gson.Gson
 import com.google.gson.JsonElement
 import com.google.gson.JsonObject
 import com.google.gson.JsonParser
+import zone.nora.slothpixel.achievements.Achievements
 import zone.nora.slothpixel.guild.Guild
 import zone.nora.slothpixel.player.Player
 import java.io.BufferedReader
@@ -65,6 +66,16 @@ class Slothpixel {
 
     fun getPlayer(uuid: UUID): Player {
         return getPlayer(uuid.toString())
+    }
+
+    fun getPlayerAchievements(nameOrUUID: String): Achievements {
+        val name = nameOrUUID.replace("-", "")
+        val gson = Gson()
+        val jsonUrl = "$url/players/$name/achievements"
+        val json = readJsonUrl(jsonUrl)
+        //if (!json["success"].asBoolean) throw APIException(json["cause"].asString)
+        //if (player.isJsonNull) throw InvalidPlayerException()
+        return gson.fromJson<Achievements>(json, Achievements::class.java)
     }
 
     /**

@@ -38,6 +38,7 @@ import com.google.gson.JsonElement
 import com.google.gson.JsonObject
 import com.google.gson.JsonParser
 import zone.nora.slothpixel.achievements.Achievements
+import zone.nora.slothpixel.bans.Bans
 import zone.nora.slothpixel.guild.Guild
 import zone.nora.slothpixel.player.Player
 import java.io.BufferedReader
@@ -95,6 +96,13 @@ class Slothpixel {
 
     fun getGuild(playerUUID: UUID): Guild {
         return getGuild(playerUUID.toString())
+    }
+
+    fun getBans(): Bans {
+        val gson = Gson()
+        val jsonUrl = "$url/bans"
+        val json = readJsonUrl(jsonUrl)
+        return gson.fromJson<Bans>(json, Bans::class.java)
     }
 
     @Throws(IOException::class)

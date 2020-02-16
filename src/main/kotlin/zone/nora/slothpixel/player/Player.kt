@@ -76,11 +76,11 @@ class Player {
     val isContributor = false
 
     @SerializedName("rewards")
-    lateinit var rewards: Rewards
+    val rewards = Rewards()
 
     @SerializedName("links")
-    lateinit var links: Links
+    val links = Links()
 
     @SerializedName("stats")
-    lateinit var stats: Stats
+    val stats = Stats()
 }

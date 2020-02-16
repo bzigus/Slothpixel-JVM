@@ -1,9 +1,43 @@
+/*
+ * BSD 3-Clause License
+ *
+ * Copyright (c) 2020, Nora Cos
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *
+ * 1. Redistributions of source code must retain the above copyright notice, this
+ *    list of conditions and the following disclaimer.
+ *
+ * 2. Redistributions in binary form must reproduce the above copyright notice,
+ *    this list of conditions and the following disclaimer in the documentation
+ *    and/or other materials provided with the distribution.
+ *
+ * 3. Neither the name of the copyright holder nor the names of its
+ *    contributors may be used to endorse or promote products derived from
+ *    this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+ * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+ * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+ * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+ * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ */
+
+/* The above notice applies to all files in this repository. */
 package zone.nora.slothpixel
 
 import com.google.gson.Gson
 import com.google.gson.JsonElement
 import com.google.gson.JsonObject
 import com.google.gson.JsonParser
+import zone.nora.slothpixel.guild.Guild
 import zone.nora.slothpixel.player.Player
 import java.io.BufferedReader
 import java.io.IOException
@@ -22,8 +56,8 @@ class Slothpixel {
     fun getPlayer(nameOrUUID: String): Player {
         val name = nameOrUUID.replace("-", "")
         val gson = Gson()
-        val url = "$url/players/$name"
-        val json: JsonObject = readJsonUrl(url)
+        val jsonUrl = "$url/players/$name"
+        val json = readJsonUrl(jsonUrl)
         //if (!json["success"].asBoolean) throw APIException(json["cause"].asString)
         //if (player.isJsonNull) throw InvalidPlayerException()
         return gson.fromJson<Player>(json, Player::class.java)
@@ -31,6 +65,25 @@ class Slothpixel {
 
     fun getPlayer(uuid: UUID): Player {
         return getPlayer(uuid.toString())
+    }
+
+    /**
+     * Returns Guild information of a player via their username
+     * or UUID.
+     *
+     * @param playerNameOrUUID Username or UUID of a player.
+     * @return Guild Object of the players guild.
+     */
+    fun getGuild(playerNameOrUUID: String): Guild {
+        val player = playerNameOrUUID.replace("-", "")
+        val gson = Gson()
+        val jsonUrl = "$url/guilds/$player?populatePlayers=true"
+        val json = readJsonUrl(jsonUrl)
+        return gson.fromJson<Guild>(json, Guild::class.java)
+    }
+
+    fun getGuild(playerUUID: UUID): Guild {
+        return getGuild(playerUUID.toString())
     }
 
     @Throws(IOException::class)

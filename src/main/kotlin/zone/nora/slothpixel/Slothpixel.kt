@@ -1,7 +1,7 @@
 /*
  * BSD 3-Clause License
  *
- * Copyright (c) 2020, Nora Cos
+ * Copyright (c) 2020, Nora Cos <https://github.com/mew>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -34,14 +34,24 @@
 package zone.nora.slothpixel
 
 import com.google.gson.Gson
-import com.google.gson.JsonElement
 import com.google.gson.JsonObject
 import com.google.gson.JsonParser
 import zone.nora.slothpixel.achievements.Achievements
 import zone.nora.slothpixel.bans.Bans
 import zone.nora.slothpixel.guild.Guild
+import zone.nora.slothpixel.health.Health
 import zone.nora.slothpixel.player.Player
+import zone.nora.slothpixel.skyblock.auctions.PastSkyblockAuctions
+import zone.nora.slothpixel.skyblock.auctions.SkyblockAuction
+import zone.nora.slothpixel.skyblock.profiles.SimpleSkyblockProfile
+import zone.nora.slothpixel.skyblock.profiles.SkyblockProfile
+import zone.nora.slothpixel.util.JsonUtil.convertToJsonArray
+import zone.nora.slothpixel.util.TimeUtil
+import zone.nora.slothpixel.util.exceptions.SlothpixelApiException
+import zone.nora.slothpixel.util.exceptions.impl.InvalidPlayerException
+import zone.nora.slothpixel.util.exceptions.impl.ProfileNotFoundException
 import java.io.BufferedReader
+import java.io.FileNotFoundException
 import java.io.IOException
 import java.io.InputStreamReader
 import java.net.URL
@@ -50,7 +60,7 @@ import java.util.*
 
 /*
  * Created by Nora Cos on 14/02/20.
- * Last modified 15/02/20.
+ * Last modified 16/02/20.
  */
 class Slothpixel {
     private val url = "https://api.slothpixel.me/api"
@@ -59,21 +69,21 @@ class Slothpixel {
         val name = nameOrUUID.replace("-", "")
         val gson = Gson()
         val jsonUrl = "$url/players/$name"
-        val json = readJsonUrl(jsonUrl)
+        val json = try { readJsonUrl(jsonUrl) } catch (ex: FileNotFoundException) { throw InvalidPlayerException()
+        }
         //if (!json["success"].asBoolean) throw APIException(json["cause"].asString)
         //if (player.isJsonNull) throw InvalidPlayerException()
         return gson.fromJson<Player>(json, Player::class.java)
     }
 
-    fun getPlayer(uuid: UUID): Player {
-        return getPlayer(uuid.toString())
-    }
+    fun getPlayer(uuid: UUID): Player = getPlayer(uuid.toString())
 
     fun getPlayerAchievements(nameOrUUID: String): Achievements {
         val name = nameOrUUID.replace("-", "")
         val gson = Gson()
         val jsonUrl = "$url/players/$name/achievements"
-        val json = readJsonUrl(jsonUrl)
+        val json = try { readJsonUrl(jsonUrl) } catch (ex: FileNotFoundException) { throw InvalidPlayerException()
+        }
         //if (!json["success"].asBoolean) throw APIException(json["cause"].asString)
         //if (player.isJsonNull) throw InvalidPlayerException()
         return gson.fromJson<Achievements>(json, Achievements::class.java)
@@ -90,13 +100,12 @@ class Slothpixel {
         val player = playerNameOrUUID.replace("-", "")
         val gson = Gson()
         val jsonUrl = "$url/guilds/$player?populatePlayers=true"
-        val json = readJsonUrl(jsonUrl)
+        val json = try { readJsonUrl(jsonUrl) } catch (ex: FileNotFoundException) { throw InvalidPlayerException()
+        }
         return gson.fromJson<Guild>(json, Guild::class.java)
     }
 
-    fun getGuild(playerUUID: UUID): Guild {
-        return getGuild(playerUUID.toString())
-    }
+    fun getGuild(playerUUID: UUID): Guild = getGuild(playerUUID.toString())
 
     fun getBans(): Bans {
         val gson = Gson()
@@ -105,9 +114,56 @@ class Slothpixel {
         return gson.fromJson<Bans>(json, Bans::class.java)
     }
 
+    fun getSkyblockProfiles(playerNameOrUUID: String): Array<SimpleSkyblockProfile> {
+        val player = playerNameOrUUID.replace("-", "")
+        val jsonUrl = "$url/skyblock/profiles/$player"
+        val json = try { readJsonUrl(jsonUrl) } catch (ex: FileNotFoundException) { throw InvalidPlayerException()
+        }
+        return Gson().fromJson(convertToJsonArray(json), Array<SimpleSkyblockProfile>::class.java)
+    }
+
+    @JvmOverloads
+    fun getSkyblockProfile(playerNameOrUUID: String, profileId: String = ""): SkyblockProfile {
+        val player = playerNameOrUUID.replace("-", "")
+        val jsonUrl = "$url/skyblock/profile/$player/$profileId"
+        val json = readJsonUrl(jsonUrl)
+        if (json.has("error")) {
+            when (json["error"].asString) {
+                "Failed to get player uuid" -> throw InvalidPlayerException()
+                "Profile not found!" -> throw ProfileNotFoundException()
+                else -> throw SlothpixelApiException(json["error"].asString)
+            }
+        }
+        return Gson().fromJson<SkyblockProfile>(json, SkyblockProfile::class.java)
+    }
+
+    @JvmOverloads
+    fun getSkyblockAuctions(limit: Int = 100, id: String = "", auctionUUID: String = "", itemUUID: String = ""): Array<SkyblockAuction> {
+        var jsonUrl = "$url/skyblock/auctions?limit=$limit"
+        if (id != "") jsonUrl += "&id=$id"
+        if (auctionUUID != "") jsonUrl += "&auctionUUID=$auctionUUID"
+        if (itemUUID != "") jsonUrl += "&itemUUID=$itemUUID"
+        val json = JsonParser().parse(getPage(jsonUrl)).asJsonArray
+        return Gson().fromJson(json, Array<SkyblockAuction>::class.java)
+    }
+
+    @JvmOverloads
+    fun getPastSkyblockAuctions(itemId: String, from: Long = TimeUtil.yesterday(), to: Long = TimeUtil.now()): PastSkyblockAuctions {
+        val jsonUrl = "$url/skyblock/auctions/$itemId?from=$from&to=$to"
+        val json = readJsonUrl(jsonUrl)
+        return Gson().fromJson<PastSkyblockAuctions>(json, PastSkyblockAuctions::class.java)
+    }
+
+    fun getHealth(): Health {
+        val gson = Gson()
+        val jsonUrl = "$url/health"
+        val json = readJsonUrl(jsonUrl)
+        return gson.fromJson<Health>(json, Health::class.java)
+    }
+
     @Throws(IOException::class)
     private fun readJsonUrl(url: String): JsonObject {
-        val jElement: JsonElement = JsonParser().parse(getPage(url))
+        val jElement = JsonParser().parse(getPage(url))
         return jElement.asJsonObject
     }
 

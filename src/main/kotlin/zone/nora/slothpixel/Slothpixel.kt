@@ -36,7 +36,7 @@ package zone.nora.slothpixel
 import com.google.gson.Gson
 import com.google.gson.JsonObject
 import com.google.gson.JsonParser
-import zone.nora.slothpixel.achievements.Achievements
+import zone.nora.slothpixel.player.achievements.Achievements
 import zone.nora.slothpixel.bans.Bans
 import zone.nora.slothpixel.guild.Guild
 import zone.nora.slothpixel.health.Health

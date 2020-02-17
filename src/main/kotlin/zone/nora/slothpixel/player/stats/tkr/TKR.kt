@@ -27,7 +27,7 @@ class TKR {
     val bananasReceived = 0
 
     @SerializedName("banana_ratio")
-    val bananaRatio = 0
+    val bananaRatio = 0.0
 
     @SerializedName("trophies")
     val trophies: Trophies = Trophies()

@@ -10,7 +10,7 @@ class Deathmatch {
     val deaths = 0
 
     @SerializedName("kd")
-    val kd = 0
+    val kd = 0.0
 
     @SerializedName("wins")
     val wins = 0

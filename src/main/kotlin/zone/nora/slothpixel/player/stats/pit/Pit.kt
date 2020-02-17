@@ -16,7 +16,7 @@ class Pit {
     val deaths = 0
 
     @SerializedName("kd_ratio")
-    val kdRatio = 0
+    val kdRatio = 0.0
 
     @SerializedName("sword_hits")
     val swordHits = 0

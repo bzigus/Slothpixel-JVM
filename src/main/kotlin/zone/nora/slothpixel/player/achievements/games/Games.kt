@@ -1,4 +1,4 @@
-package zone.nora.slothpixel.achievements.games
+package zone.nora.slothpixel.player.achievements.games
 
 import com.google.gson.annotations.SerializedName
 

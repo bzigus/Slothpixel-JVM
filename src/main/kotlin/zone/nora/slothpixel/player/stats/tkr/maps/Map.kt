@@ -8,7 +8,7 @@ class Map {
     val games = 0
 
     @SerializedName("win_ratio")
-    val winRatio = 0
+    val winRatio = 0.0
 
     @SerializedName("trophies")
     val trophies: Trophies = Trophies()

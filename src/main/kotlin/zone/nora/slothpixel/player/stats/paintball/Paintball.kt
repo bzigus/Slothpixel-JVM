@@ -15,7 +15,7 @@ class Paintball {
     val deaths = 0
 
     @SerializedName("kd")
-    val kd = 0
+    val kd = 0.0
 
     @SerializedName("wins")
     val wins = 0
@@ -33,7 +33,7 @@ class Paintball {
     val shotsFired = 0
 
     @SerializedName("force_field_time")
-    val forceFieldTime = 0
+    val forceFieldTime: Long = 0
 
     @SerializedName("perks")
     val perks = Perks()

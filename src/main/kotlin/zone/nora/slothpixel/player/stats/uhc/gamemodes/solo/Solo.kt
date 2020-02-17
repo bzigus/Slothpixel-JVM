@@ -10,16 +10,16 @@ class Solo {
     val kills = 0
 
     @SerializedName("kd")
-    val kd = 0
+    val kd = 0.0
 
     @SerializedName("wins")
     val wins = 0
 
     @SerializedName("win_loss")
-    val winLoss = 0
+    val winLoss = 0.0
 
     @SerializedName("win_percentage")
-    val winPercentage = 0
+    val winPercentage = 0.0
 
     @SerializedName("heads_eaten")
     val headsEaten = 0

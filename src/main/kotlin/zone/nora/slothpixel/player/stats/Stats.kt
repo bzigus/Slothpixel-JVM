@@ -3,6 +3,7 @@ package zone.nora.slothpixel.player.stats
 import com.google.gson.annotations.SerializedName
 import zone.nora.slothpixel.player.stats.arcade.Arcade
 import zone.nora.slothpixel.player.stats.arena.Arena
+import zone.nora.slothpixel.player.stats.bedwars.BedWars
 import zone.nora.slothpixel.player.stats.blitz.Blitz
 import zone.nora.slothpixel.player.stats.buildbattle.BuildBattle
 import zone.nora.slothpixel.player.stats.crazywalls.CrazyWalls
@@ -10,6 +11,7 @@ import zone.nora.slothpixel.player.stats.cvc.CvC
 import zone.nora.slothpixel.player.stats.duels.Duels
 import zone.nora.slothpixel.player.stats.murdermystery.MurderMystery
 import zone.nora.slothpixel.player.stats.paintball.Paintball
+import zone.nora.slothpixel.player.stats.pit.Pit
 import zone.nora.slothpixel.player.stats.skywars.SkyWars
 import zone.nora.slothpixel.player.stats.smash.Smash
 import zone.nora.slothpixel.player.stats.tkr.TKR
@@ -29,7 +31,8 @@ class Stats {
     @SerializedName("Warlords")
     val warlords = Warlords()
 
-    // TODO Bedwars
+    @SerializedName("BedWars")
+    val bedWars = BedWars()
 
     @SerializedName("BuildBattle")
     val buildBattle = BuildBattle()
@@ -52,7 +55,8 @@ class Stats {
     @SerializedName("Paintball")
     val paintball = Paintball()
 
-    // TODO Pit
+    @SerializedName("Pit")
+    val pit = Pit()
 
     @SerializedName("SkyClash")
     val skyClash = SkyWars()

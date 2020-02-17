@@ -14,7 +14,7 @@ import zone.nora.slothpixel.player.stats.arcade.modes.miniwalls.MiniWalls
 import zone.nora.slothpixel.player.stats.arcade.modes.partygames.PartyGames
 import zone.nora.slothpixel.player.stats.arcade.modes.zombies.Zombies
 
-class Modes {
+class ArcadeModes {
     @SerializedName("blocking_dead")
     val blockingDead: BlockingDead = BlockingDead()
 

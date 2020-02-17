@@ -1,7 +1,7 @@
 package zone.nora.slothpixel.player.stats.arcade
 
 import com.google.gson.annotations.SerializedName
-import zone.nora.slothpixel.player.stats.arcade.modes.Modes
+import zone.nora.slothpixel.player.stats.arcade.modes.ArcadeModes
 
 class Arcade {
     @SerializedName("coins")
@@ -14,5 +14,5 @@ class Arcade {
     val kills = 0
 
     @SerializedName("modes")
-    val modes: Modes = Modes()
+    val modes = ArcadeModes()
 }

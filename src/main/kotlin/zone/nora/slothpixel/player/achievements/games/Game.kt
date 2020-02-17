@@ -7,7 +7,7 @@ class Game {
     val oneTime = ArrayList<String>()
 
     @SerializedName("tiered")
-    val tiered = ArrayList<String>()
+    val tiered = HashMap<String, Int>()
 
     @SerializedName("completed")
     val completed = 0

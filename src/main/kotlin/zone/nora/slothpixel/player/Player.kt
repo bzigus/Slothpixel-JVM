@@ -34,7 +34,7 @@ class Player {
     val exp = 0
 
     @SerializedName("level")
-    val level = 0
+    val level = 0.0
 
     @SerializedName("achievement_points")
     val achievementPoints = 0
@@ -55,10 +55,10 @@ class Player {
     val mcVersion = ""
 
     @SerializedName("first_login")
-    val firstLogin = ""
+    val firstLogin: Long = 0
 
     @SerializedName("last_login")
-    val lastLogin = ""
+    val lastLogin: Long = 0
 
     @SerializedName("last_game")
     val lastGame = ""

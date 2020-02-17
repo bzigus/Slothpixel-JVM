@@ -36,11 +36,12 @@ package zone.nora.slothpixel
 import com.google.gson.Gson
 import com.google.gson.JsonObject
 import com.google.gson.JsonParser
-import zone.nora.slothpixel.player.achievements.Achievements
 import zone.nora.slothpixel.bans.Bans
 import zone.nora.slothpixel.guild.Guild
 import zone.nora.slothpixel.health.Health
 import zone.nora.slothpixel.player.Player
+import zone.nora.slothpixel.player.achievements.Achievements
+import zone.nora.slothpixel.player.quests.Quests
 import zone.nora.slothpixel.skyblock.auctions.PastSkyblockAuctions
 import zone.nora.slothpixel.skyblock.auctions.SkyblockAuction
 import zone.nora.slothpixel.skyblock.profiles.SimpleSkyblockProfile
@@ -81,6 +82,14 @@ class Slothpixel {
         val jsonUrl = "$url/players/$name/achievements"
         val json = getFromUrl(jsonUrl)
         return gson.fromJson<Achievements>(json, Achievements::class.java)
+    }
+
+    fun getPlayerQuests(nameOrUUID: String): Quests {
+        val name = nameOrUUID.replace("-", "")
+        val gson = Gson()
+        val jsonUrl = "$url/players/$name/quests"
+        val json = getFromUrl(jsonUrl)
+        return gson.fromJson<Quests>(json, Quests::class.java)
     }
 
     /**

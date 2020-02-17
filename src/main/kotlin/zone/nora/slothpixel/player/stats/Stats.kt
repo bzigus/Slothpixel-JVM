@@ -12,8 +12,10 @@ import zone.nora.slothpixel.player.stats.duels.Duels
 import zone.nora.slothpixel.player.stats.murdermystery.MurderMystery
 import zone.nora.slothpixel.player.stats.paintball.Paintball
 import zone.nora.slothpixel.player.stats.pit.Pit
+import zone.nora.slothpixel.player.stats.skyblock.SkyBlock
 import zone.nora.slothpixel.player.stats.skywars.SkyWars
 import zone.nora.slothpixel.player.stats.smash.Smash
+import zone.nora.slothpixel.player.stats.speeduhc.SpeedUHC
 import zone.nora.slothpixel.player.stats.tkr.TKR
 import zone.nora.slothpixel.player.stats.tnt.TNT
 import zone.nora.slothpixel.player.stats.uhc.UHC
@@ -64,9 +66,11 @@ class Stats {
     @SerializedName("SkyWars")
     val skyWars = SkyWars()
 
-    // TODO SkyBlock
+    @SerializedName("SkyBlock")
+    val skyBlock = SkyBlock()
 
-    // TODO SpeedUHC
+    @SerializedName("SpeedUHC")
+    val speedUHC = SpeedUHC()
 
     @SerializedName("Smash")
     val smash = Smash()

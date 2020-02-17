@@ -71,8 +71,6 @@ class Slothpixel {
         val jsonUrl = "$url/players/$name"
         val json = try { readJsonUrl(jsonUrl) } catch (ex: FileNotFoundException) { throw InvalidPlayerException()
         }
-        //if (!json["success"].asBoolean) throw APIException(json["cause"].asString)
-        //if (player.isJsonNull) throw InvalidPlayerException()
         return gson.fromJson<Player>(json, Player::class.java)
     }
 

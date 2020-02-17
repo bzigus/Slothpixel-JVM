@@ -1,7 +1,7 @@
 package zone.nora.slothpixel.guild.member
 
 import com.google.gson.annotations.SerializedName
-import zone.nora.slothpixel.guild.member.profile.Profile
+import zone.nora.slothpixel.player.simpleprofile.SimpleProfile
 
 class GuildMember {
     @SerializedName("rank")
@@ -23,5 +23,5 @@ class GuildMember {
     val mutedTill: Long? = null
 
     @SerializedName("profile")
-    val profile = Profile()
+    val profile = SimpleProfile()
 }

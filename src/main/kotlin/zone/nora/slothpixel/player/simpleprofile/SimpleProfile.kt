@@ -1,8 +1,8 @@
-package zone.nora.slothpixel.guild.member.profile
+package zone.nora.slothpixel.player.simpleprofile
 
 import com.google.gson.annotations.SerializedName
 
-class Profile {
+class SimpleProfile {
     @SerializedName("uuid")
     val uuid = ""
 

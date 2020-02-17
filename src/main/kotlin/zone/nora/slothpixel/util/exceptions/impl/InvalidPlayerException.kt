@@ -1,3 +1,5 @@
 package zone.nora.slothpixel.util.exceptions.impl
 
-class InvalidPlayerException : IllegalStateException()
+import zone.nora.slothpixel.util.exceptions.SlothpixelApiException
+
+class InvalidPlayerException : SlothpixelApiException("Failed to get player uuid")

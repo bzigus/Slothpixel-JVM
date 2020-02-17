@@ -27,3 +27,5 @@ hs_err_pid*
 build/
 gen/
 src/main/kotlin/zone/nora/slothpixel/generator/GenClass.kt
+
+GenClass.kt

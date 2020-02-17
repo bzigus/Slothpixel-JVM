@@ -69,8 +69,7 @@ class Slothpixel {
         val name = nameOrUUID.replace("-", "")
         val gson = Gson()
         val jsonUrl = "$url/players/$name"
-        val json = try { readJsonUrl(jsonUrl) } catch (ex: FileNotFoundException) { throw InvalidPlayerException()
-        }
+        val json = getFromUrl(jsonUrl)
         return gson.fromJson<Player>(json, Player::class.java)
     }
 
@@ -80,10 +79,7 @@ class Slothpixel {
         val name = nameOrUUID.replace("-", "")
         val gson = Gson()
         val jsonUrl = "$url/players/$name/achievements"
-        val json = try { readJsonUrl(jsonUrl) } catch (ex: FileNotFoundException) { throw InvalidPlayerException()
-        }
-        //if (!json["success"].asBoolean) throw APIException(json["cause"].asString)
-        //if (player.isJsonNull) throw InvalidPlayerException()
+        val json = getFromUrl(jsonUrl)
         return gson.fromJson<Achievements>(json, Achievements::class.java)
     }
 
@@ -108,15 +104,14 @@ class Slothpixel {
     fun getBans(): Bans {
         val gson = Gson()
         val jsonUrl = "$url/bans"
-        val json = readJsonUrl(jsonUrl)
+        val json = getFromUrl(jsonUrl)
         return gson.fromJson<Bans>(json, Bans::class.java)
     }
 
     fun getSkyblockProfiles(playerNameOrUUID: String): Array<SimpleSkyblockProfile> {
         val player = playerNameOrUUID.replace("-", "")
         val jsonUrl = "$url/skyblock/profiles/$player"
-        val json = try { readJsonUrl(jsonUrl) } catch (ex: FileNotFoundException) { throw InvalidPlayerException()
-        }
+        val json = getFromUrl(jsonUrl)
         return Gson().fromJson(convertToJsonArray(json), Array<SimpleSkyblockProfile>::class.java)
     }
 
@@ -124,14 +119,7 @@ class Slothpixel {
     fun getSkyblockProfile(playerNameOrUUID: String, profileId: String = ""): SkyblockProfile {
         val player = playerNameOrUUID.replace("-", "")
         val jsonUrl = "$url/skyblock/profile/$player/$profileId"
-        val json = readJsonUrl(jsonUrl)
-        if (json.has("error")) {
-            when (json["error"].asString) {
-                "Failed to get player uuid" -> throw InvalidPlayerException()
-                "Profile not found!" -> throw ProfileNotFoundException()
-                else -> throw SlothpixelApiException(json["error"].asString)
-            }
-        }
+        val json = getFromUrl(jsonUrl)
         return Gson().fromJson<SkyblockProfile>(json, SkyblockProfile::class.java)
     }
 
@@ -148,15 +136,28 @@ class Slothpixel {
     @JvmOverloads
     fun getPastSkyblockAuctions(itemId: String, from: Long = TimeUtil.yesterday(), to: Long = TimeUtil.now()): PastSkyblockAuctions {
         val jsonUrl = "$url/skyblock/auctions/$itemId?from=$from&to=$to"
-        val json = readJsonUrl(jsonUrl)
+        val json = getFromUrl(jsonUrl)
         return Gson().fromJson<PastSkyblockAuctions>(json, PastSkyblockAuctions::class.java)
     }
 
     fun getHealth(): Health {
         val gson = Gson()
         val jsonUrl = "$url/health"
-        val json = readJsonUrl(jsonUrl)
+        val json = getFromUrl(jsonUrl)
         return gson.fromJson<Health>(json, Health::class.java)
+    }
+
+    // Parses errors
+    private fun getFromUrl(url: String): JsonObject {
+        val json = readJsonUrl(url)
+        if (json.has("error")) {
+            when (json["error"].asString) {
+                "Failed to get player uuid" -> throw InvalidPlayerException()
+                "Profile not found!" -> throw ProfileNotFoundException()
+                else -> throw SlothpixelApiException(json["error"].asString)
+            }
+        }
+        return json
     }
 
     @Throws(IOException::class)

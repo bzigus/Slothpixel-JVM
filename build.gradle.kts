@@ -1,4 +1,4 @@
-plugins {
+/*plugins {
     java
     scala
     kotlin("jvm") version "1.3.61"
@@ -40,4 +40,4 @@ tasks {
     "build" {
         dependsOn(fatJar)
     }
-}
+}*/

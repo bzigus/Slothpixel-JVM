@@ -1,4 +1,3 @@
-[![](https://jitpack.io/v/mew/slothpixel-jvm.svg)](https://jitpack.io/#mew/slothpixel-jvm)
 [![License](https://img.shields.io/badge/License-BSD%203--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
 # Slothpixel-JVM
 API Wrapper for the [Slothpixel API](https://docs.slothpixel.me) for the Java Virtual Machine.
@@ -40,4 +39,4 @@ Currently there are examples in [Java](https://github.com/mew/Slothpixel-JVM/tre
 [Scala](https://github.com/mew/Slothpixel-JVM/tree/master/src/test/scala/zone/nora/slothpixel/example/scala)
 (as of right now, the Scala ones are the most complete).
 
-You can add the library to your project via [Jitpack](https://jitpack.io/#mew/slothpixel-jvm/). It should work well with any JVM language (just note that it is targeted towards JDK 8).
+~~You can add the library to your project via [Jitpack](https://jitpack.io/#mew/slothpixel-jvm/). It should work well with any JVM language (just note that it is targeted towards JDK 8).~~ Won't build lol. Use the [Releases Page](https://github.com/mew/Slothpixel-JVM/releases) for now.

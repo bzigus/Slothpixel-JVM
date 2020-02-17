@@ -9,7 +9,7 @@ object GetSkyblockProfilesExampleScala {
     // Save a request as a local variable.
     val profiles = slothpixel.getSkyblockProfiles("bspwm")
 
-    // For every profile...
+    // Get data for each profile.
     profiles.foreach(profile => {
       println(s"Profile id: ${profile.getProfileId}")
       println(s"Profile name: ${profile.getCuteName}")

@@ -37,6 +37,8 @@ import com.google.gson.Gson
 import com.google.gson.JsonObject
 import com.google.gson.JsonParser
 import zone.nora.slothpixel.bans.Bans
+import zone.nora.slothpixel.boosters.Booster
+import zone.nora.slothpixel.boosters.Boosters
 import zone.nora.slothpixel.guild.Guild
 import zone.nora.slothpixel.health.Health
 import zone.nora.slothpixel.player.Player
@@ -49,6 +51,7 @@ import zone.nora.slothpixel.skyblock.profiles.SkyblockProfile
 import zone.nora.slothpixel.util.JsonUtil.convertToJsonArray
 import zone.nora.slothpixel.util.TimeUtil
 import zone.nora.slothpixel.util.exceptions.SlothpixelApiException
+import zone.nora.slothpixel.util.exceptions.impl.InvalidMinigameException
 import zone.nora.slothpixel.util.exceptions.impl.InvalidPlayerException
 import zone.nora.slothpixel.util.exceptions.impl.ProfileNotFoundException
 import java.io.BufferedReader
@@ -66,6 +69,13 @@ import java.util.*
 class Slothpixel {
     private val url = "https://api.slothpixel.me/api"
 
+    /**
+     * Return a player object of the specified name or UUID.
+     * https://docs.slothpixel.me/#tag/player/
+     *
+     * @param nameOrUUID Username or UUID of a player.
+     * @return Player object of the specified name or UUID.
+     */
     fun getPlayer(nameOrUUID: String): Player {
         val name = nameOrUUID.replace("-", "")
         val gson = Gson()
@@ -74,8 +84,18 @@ class Slothpixel {
         return gson.fromJson<Player>(json, Player::class.java)
     }
 
+    /**
+     * @see getPlayer(nameOrUUID)
+     */
     fun getPlayer(uuid: UUID): Player = getPlayer(uuid.toString())
 
+    /**
+     * Return an achievements object of the specified name or UUID.
+     * https://docs.slothpixel.me/#tag/player/paths/~1players~1{playerName}~1achievements/get
+     *
+     * @param nameOrUUID Username or UUID of a player.
+     * @return Achievements object of the specified name or UUID.
+     */
     fun getPlayerAchievements(nameOrUUID: String): Achievements {
         val name = nameOrUUID.replace("-", "")
         val gson = Gson()
@@ -84,6 +104,13 @@ class Slothpixel {
         return gson.fromJson<Achievements>(json, Achievements::class.java)
     }
 
+    /**
+     * Return a quests object of the specified name or UUID.
+     * https://docs.slothpixel.me/#tag/player/paths/~1players~1{playerName}~1quests/get
+     *
+     * @param nameOrUUID Username or UUID of a player.
+     * @return Quests object of the specified name or UUID.
+     */
     fun getPlayerQuests(nameOrUUID: String): Quests {
         val name = nameOrUUID.replace("-", "")
         val gson = Gson()
@@ -95,6 +122,7 @@ class Slothpixel {
     /**
      * Returns Guild information of a player via their username
      * or UUID.
+     * https://docs.slothpixel.me/#tag/guild
      *
      * @param playerNameOrUUID Username or UUID of a player.
      * @return Guild Object of the players guild.
@@ -108,8 +136,16 @@ class Slothpixel {
         return gson.fromJson<Guild>(json, Guild::class.java)
     }
 
+    /**
+     * @see getGuild(playerNameOrUUID)
+     */
     fun getGuild(playerUUID: UUID): Guild = getGuild(playerUUID.toString())
 
+    /**
+     * Return bans object (https://docs.slothpixel.me/#tag/bans)
+     *
+     * @return Bans object.
+     */
     fun getBans(): Bans {
         val gson = Gson()
         val jsonUrl = "$url/bans"
@@ -117,6 +153,43 @@ class Slothpixel {
         return gson.fromJson<Bans>(json, Bans::class.java)
     }
 
+    /**
+     * Return every active booster on Hypixel.
+     *
+     * @return Every active booster on Hypixel.
+     */
+    fun getBoosters(): Boosters {
+        val jsonUrl = "$url/boosters"
+        val json = getFromUrl(jsonUrl)
+        return Gson().fromJson<Boosters>(json, Boosters::class.java)
+    }
+
+    /**
+     * Return a list of active boosters for a specified game.
+     *
+     * @param game Standard name (https://github.com/slothpixel/core/wiki/Standard-naming) of a game.
+     */
+    fun getBoostersByGame(game: String = ""): Array<Booster> {
+        val jsonUrl = "$url/boosters/$game"
+        val json = try {
+            JsonParser().parse(getPage(jsonUrl)).asJsonArray
+        } catch (ex: IllegalStateException) {
+            throw InvalidMinigameException()
+        } catch (ex: IOException) {
+            throw InvalidMinigameException()
+        }
+        return Gson().fromJson(json, Array<Booster>::class.java)
+    }
+
+    /**
+     * Return a list of specified player's Skyblock profiles.
+     * Note that these are not the full profiles. For that you need:
+     * @see getSkyblockProfile
+     * https://docs.slothpixel.me/#tag/skyblock/paths/~1skyblock~1profiles~1{playerName}/get
+     *
+     * @param playerNameOrUUID Username or UUID of a player.
+     * @return Array of player's Skyblock Profiles
+     */
     fun getSkyblockProfiles(playerNameOrUUID: String): Array<SimpleSkyblockProfile> {
         val player = playerNameOrUUID.replace("-", "")
         val jsonUrl = "$url/skyblock/profiles/$player"
@@ -124,6 +197,14 @@ class Slothpixel {
         return Gson().fromJson(convertToJsonArray(json), Array<SimpleSkyblockProfile>::class.java)
     }
 
+    /**
+     * Return the full skyblock profile of a specified player.
+     * https://docs.slothpixel.me/#tag/skyblock/paths/~1skyblock~1profile~1{playerName}~1{profileId}/get
+     *
+     * @param playerNameOrUUID Username or UUID of a player.
+     * @param profileId Id of Skyblock Profile. This can be in "cute" form or uuid form.
+     * @return Full Skyblock profile of specified player.
+     */
     @JvmOverloads
     fun getSkyblockProfile(playerNameOrUUID: String, profileId: String = ""): SkyblockProfile {
         val player = playerNameOrUUID.replace("-", "")
@@ -132,6 +213,15 @@ class Slothpixel {
         return Gson().fromJson<SkyblockProfile>(json, SkyblockProfile::class.java)
     }
 
+    /**
+     * Return an array of ongoing Skyblock auctions.
+     * https://docs.slothpixel.me/#tag/skyblock/paths/~1skyblock~1auctions/get
+     *
+     * @param limit How many auctions you want to be returned. This caps at 1000.
+     * @param id Item id for filtering items. These can be found here: https://api.slothpixel.me/api/skyblock/items
+     * @param auctionUUID UUID of a specific auction.
+     * @param itemUUID UUID of a specific item.
+     */
     @JvmOverloads
     fun getSkyblockAuctions(limit: Int = 100, id: String = "", auctionUUID: String = "", itemUUID: String = ""): Array<SkyblockAuction> {
         var jsonUrl = "$url/skyblock/auctions?limit=$limit"
@@ -142,6 +232,14 @@ class Slothpixel {
         return Gson().fromJson(json, Array<SkyblockAuction>::class.java)
     }
 
+    /**
+     * Return historical Skyblock auction data of a specified item.
+     * https://docs.slothpixel.me/#tag/skyblock/paths/~1skyblock~1auctions~1{itemId}/get
+     *
+     * @param itemId Item id. These can be found here: https://api.slothpixel.me/api/skyblock/items
+     * @param from Start time of your query as a Unix timestamp
+     * @param to End time of your query as a Unix timestamp
+     */
     @JvmOverloads
     fun getPastSkyblockAuctions(itemId: String, from: Long = TimeUtil.yesterday(), to: Long = TimeUtil.now()): PastSkyblockAuctions {
         val jsonUrl = "$url/skyblock/auctions/$itemId?from=$from&to=$to"
@@ -149,6 +247,11 @@ class Slothpixel {
         return Gson().fromJson<PastSkyblockAuctions>(json, PastSkyblockAuctions::class.java)
     }
 
+    /**
+     * https://docs.slothpixel.me/#tag/health
+     *
+     * @return Health object.
+     */
     fun getHealth(): Health {
         val gson = Gson()
         val jsonUrl = "$url/health"
@@ -163,6 +266,7 @@ class Slothpixel {
             when (json["error"].asString) {
                 "Failed to get player uuid" -> throw InvalidPlayerException()
                 "Profile not found!" -> throw ProfileNotFoundException()
+                "Invalid minigame name!" -> throw InvalidMinigameException()
                 else -> throw SlothpixelApiException(json["error"].asString)
             }
         }

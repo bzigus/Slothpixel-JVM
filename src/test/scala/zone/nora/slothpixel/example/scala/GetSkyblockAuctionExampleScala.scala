@@ -1,4 +1,4 @@
-package zone.nora.slothpixel.example.scalaor every guild member...
+package zone.nora.slothpixel.example.scala
 
 import zone.nora.slothpixel.Slothpixel
 

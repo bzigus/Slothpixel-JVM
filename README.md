@@ -39,4 +39,21 @@ Currently there are examples in [Java](https://github.com/mew/Slothpixel-JVM/tre
 [Scala](https://github.com/mew/Slothpixel-JVM/tree/master/src/test/scala/zone/nora/slothpixel/example/scala)
 (as of right now, the Scala ones are the most complete).
 
-You can add the library to your project via [Jitpack](https://jitpack.io/#mew/slothpixel-jvm/). It should work well with any JVM language (just note that it is targeted towards JDK 8).
+### Installation
+You can add the library to your project via [Jitpack](https://jitpack.io/#mew/slothpixel-jvm/) by adding the following to your dependencies:
+```groovy
+repositories {
+    // 
+	maven { url 'https://jitpack.io' }
+}
+
+dependencies {
+    // Required Gson library.
+    implementation 'com.google.code.gson:gson:2.8.5'
+    // Required Kotlin sdk. You do not need to include this if your project is written in Kotlin.
+    implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.3.61'
+    // The actual project
+    implementation 'com.github.mew:Slothpixel-JVM:0.1.2'
+}
+```
+It should work well with any JVM language (just note that it is targeted towards JDK 8).

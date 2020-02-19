@@ -10,5 +10,5 @@ class Quests {
     val challengesCompleted = 0
 
     @SerializedName("completions")
-    val completions = HashMap<String, Long>()
+    val completions = HashMap<String, ArrayList<Long>>()
 }

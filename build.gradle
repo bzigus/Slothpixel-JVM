@@ -5,7 +5,7 @@ plugins {
 }
 
 group 'zone.nora'
-version '0.1.1'
+version '0.1.2'
 
 sourceCompatibility = targetCompatibility = 1.8
 
@@ -23,9 +23,9 @@ dependencies {
 }
 
 jar {
-    //from configurations.compile.asFileTree.files.collect {
-    //    zipTree(it)
-    //}
+    from configurations.compile.asFileTree.files.collect {
+        zipTree(it)
+    }
 }
 
 task sourcesJar(type: Jar, dependsOn: classes) {

@@ -15,7 +15,7 @@ repositories {
 }
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
-    testCompile group:"org.scala-lang", name: "scala-library", version: "2.13.1"
+    testCompile group: "org.scala-lang", name: "scala-library", version: "2.13.1"
 
     compile 'com.google.code.gson:gson:2.8.5'
 
@@ -23,9 +23,9 @@ dependencies {
 }
 
 jar {
-    from configurations.compile.asFileTree.files.collect {
-        zipTree(it)
-    }
+    //from configurations.compile.asFileTree.files.collect {
+    //    zipTree(it)
+    //}
 }
 
 task sourcesJar(type: Jar, dependsOn: classes) {

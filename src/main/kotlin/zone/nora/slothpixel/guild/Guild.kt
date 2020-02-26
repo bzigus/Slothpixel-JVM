@@ -26,6 +26,9 @@ class Guild {
     @SerializedName("tag_color")
     val tagColor = ""
 
+    @SerializedName("tag_formatted")
+    val tagFormatted = ""
+
     @SerializedName("legacy_ranking")
     val legacyRanking = 0
 

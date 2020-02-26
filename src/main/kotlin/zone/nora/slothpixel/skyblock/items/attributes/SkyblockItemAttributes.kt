@@ -20,4 +20,10 @@ class SkyblockItemAttributes {
 
     @SerializedName("texture")
     val texture = ""
+
+    @SerializedName("anvil_uses")
+    val anvilUses = 0
+
+    @SerializedName("hot_potato_count")
+    val hotPotatoCount = 0
 }

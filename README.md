@@ -1,5 +1,7 @@
-[![License](https://img.shields.io/badge/License-BSD%203--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
 # Slothpixel-JVM
+[![](https://jitpack.io/v/mew/slothpixel-jvm.svg)](https://jitpack.io/#mew/slothpixel-jvm)
+[![License](https://img.shields.io/badge/License-BSD%203--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)  
+
 API Wrapper for the [Slothpixel API](https://docs.slothpixel.me) for the Java Virtual Machine.
 
 Currently with this library you can:

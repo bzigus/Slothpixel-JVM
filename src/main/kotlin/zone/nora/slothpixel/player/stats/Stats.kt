@@ -9,9 +9,11 @@ import zone.nora.slothpixel.player.stats.buildbattle.BuildBattle
 import zone.nora.slothpixel.player.stats.crazywalls.CrazyWalls
 import zone.nora.slothpixel.player.stats.cvc.CvC
 import zone.nora.slothpixel.player.stats.duels.Duels
+import zone.nora.slothpixel.player.stats.megawalls.MegaWalls
 import zone.nora.slothpixel.player.stats.murdermystery.MurderMystery
 import zone.nora.slothpixel.player.stats.paintball.Paintball
 import zone.nora.slothpixel.player.stats.pit.Pit
+import zone.nora.slothpixel.player.stats.quake.Quake
 import zone.nora.slothpixel.player.stats.skyblock.SkyBlock
 import zone.nora.slothpixel.player.stats.skywars.SkyWars
 import zone.nora.slothpixel.player.stats.smash.Smash
@@ -89,4 +91,10 @@ class Stats {
 
     @SerializedName("Walls")
     val walls = Walls()
+
+    @SerializedName("Quake")
+    val quake = Quake()
+
+    @SerializedName("MegaWalls")
+    val megaWalls = MegaWalls()
 }

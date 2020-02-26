@@ -1,7 +1,7 @@
 package zone.nora.slothpixel.player.stats.paintball
 
 import com.google.gson.annotations.SerializedName
-import zone.nora.slothpixel.player.stats.cvc.perks.Perks
+import zone.nora.slothpixel.player.stats.paintball.perks.Perks
 import zone.nora.slothpixel.player.stats.paintball.votes.Votes
 
 class Paintball {

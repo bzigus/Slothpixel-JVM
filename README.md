@@ -55,7 +55,7 @@ dependencies {
     // Required Kotlin sdk. You do not need to include this if your project is written in Kotlin.
     implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.3.61'
     // The actual project
-    implementation 'com.github.mew:Slothpixel-JVM:0.1.2'
+    implementation 'com.github.mew:Slothpixel-JVM:0.1.3'
 }
 ```
 It should work well with any JVM language (just note that it is targeted towards JDK 8).

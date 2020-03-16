@@ -69,6 +69,12 @@ class Kits {
     @SerializedName("pigman")
     val pigman = 0
 
+    @SerializedName("rambo")
+    val rambo = 0
+
+    @SerializedName("random")
+    val random = 0
+
     @SerializedName("reaper")
     val reaper = 0
 

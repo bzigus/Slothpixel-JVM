@@ -15,8 +15,8 @@ class Blitz {
     @SerializedName("kills")
     val kills = 0
 
-    @SerializedName("kd")
-    val kd = 0.0
+    @SerializedName("k_d")
+    val kD = 0.0
 
     @SerializedName("wins")
     val wins = 0
@@ -74,6 +74,9 @@ class Blitz {
 
     @SerializedName("blitz_uses")
     val blitzUses = 0
+
+    @SerializedName("chests_opened")
+    val chestsOpened = 0
 
     @SerializedName("kits_levels")
     val kitsLevels = Kits()

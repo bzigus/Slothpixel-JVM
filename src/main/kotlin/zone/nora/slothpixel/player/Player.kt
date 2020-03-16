@@ -60,6 +60,9 @@ class Player {
     @SerializedName("last_login")
     val lastLogin: Long = 0
 
+    @SerializedName("last_logout")
+    val lastLogout: Long = 0
+
     @SerializedName("last_game")
     val lastGame = ""
 

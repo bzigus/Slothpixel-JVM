@@ -7,6 +7,7 @@ import zone.nora.slothpixel.skyblock.players.collection.SkyblockCollection
 import zone.nora.slothpixel.skyblock.players.minions.SkyblockMinions
 import zone.nora.slothpixel.skyblock.players.skills.SkyblockSkills
 import zone.nora.slothpixel.skyblock.players.stats.SkyblockPlayerStats
+import zone.nora.slothpixel.skyblock.players.slayer.Slayers
 
 class SkyblockPlayer {
     @SerializedName("player")
@@ -59,4 +60,7 @@ class SkyblockPlayer {
 
     @SerializedName("stats")
     val stats = SkyblockPlayerStats()
+
+    @SerializedName("slayer")
+    val slayer = Slayers()
 }

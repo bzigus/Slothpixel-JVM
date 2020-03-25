@@ -44,6 +44,7 @@ import zone.nora.slothpixel.health.Health
 import zone.nora.slothpixel.player.Player
 import zone.nora.slothpixel.player.achievements.Achievements
 import zone.nora.slothpixel.player.quests.Quests
+import zone.nora.slothpixel.player.recentgames.RecentGame
 import zone.nora.slothpixel.skyblock.auctions.PastSkyblockAuctions
 import zone.nora.slothpixel.skyblock.auctions.SkyblockAuction
 import zone.nora.slothpixel.skyblock.profiles.SimpleSkyblockProfile
@@ -81,7 +82,7 @@ class Slothpixel {
         val gson = Gson()
         val jsonUrl = "$url/players/$name"
         val json = getFromUrl(jsonUrl)
-        return gson.fromJson<Player>(json, Player::class.java)
+        return gson.fromJson(json, Player::class.java)
     }
 
     /**
@@ -101,7 +102,7 @@ class Slothpixel {
         val gson = Gson()
         val jsonUrl = "$url/players/$name/achievements"
         val json = getFromUrl(jsonUrl)
-        return gson.fromJson<Achievements>(json, Achievements::class.java)
+        return gson.fromJson(json, Achievements::class.java)
     }
 
     /**
@@ -116,7 +117,23 @@ class Slothpixel {
         val gson = Gson()
         val jsonUrl = "$url/players/$name/quests"
         val json = getFromUrl(jsonUrl)
-        return gson.fromJson<Quests>(json, Quests::class.java)
+        return gson.fromJson(json, Quests::class.java)
+    }
+
+    /**
+     * Return a list of a players most recently played games.
+     * Games are stored for 3 days. This can be disabled by the player.
+     * https://docs.slothpixel.me/#tag/player/paths/~1players~1{playerName}~1recentGames/get
+     *
+     * @param nameOrUUID Username of UUID of a player.
+     * @return Array of player's recently played games.
+     */
+    fun getPlayerRecentGames(nameOrUUID: String): Array<RecentGame> {
+        val name = nameOrUUID.replace("-", "")
+        val gson = Gson()
+        val jsonUrl = "$url/players/$name/recentGames"
+        val json = JsonParser().parse(getPage(jsonUrl)).asJsonArray
+        return gson.fromJson(json, Array<RecentGame>::class.java)
     }
 
     /**
@@ -133,7 +150,7 @@ class Slothpixel {
         val jsonUrl = "$url/guilds/$player?populatePlayers=true"
         val json = try { readJsonUrl(jsonUrl) } catch (ex: FileNotFoundException) { throw InvalidPlayerException()
         }
-        return gson.fromJson<Guild>(json, Guild::class.java)
+        return gson.fromJson(json, Guild::class.java)
     }
 
     /**
@@ -150,7 +167,7 @@ class Slothpixel {
         val gson = Gson()
         val jsonUrl = "$url/bans"
         val json = getFromUrl(jsonUrl)
-        return gson.fromJson<Bans>(json, Bans::class.java)
+        return gson.fromJson(json, Bans::class.java)
     }
 
     /**
@@ -161,7 +178,7 @@ class Slothpixel {
     fun getBoosters(): Boosters {
         val jsonUrl = "$url/boosters"
         val json = getFromUrl(jsonUrl)
-        return Gson().fromJson<Boosters>(json, Boosters::class.java)
+        return Gson().fromJson(json, Boosters::class.java)
     }
 
     /**
@@ -210,7 +227,7 @@ class Slothpixel {
         val player = playerNameOrUUID.replace("-", "")
         val jsonUrl = "$url/skyblock/profile/$player/$profileId"
         val json = getFromUrl(jsonUrl)
-        return Gson().fromJson<SkyblockProfile>(json, SkyblockProfile::class.java)
+        return Gson().fromJson(json, SkyblockProfile::class.java)
     }
 
     /**
@@ -244,7 +261,7 @@ class Slothpixel {
     fun getPastSkyblockAuctions(itemId: String, from: Long = TimeUtil.yesterday(), to: Long = TimeUtil.now()): PastSkyblockAuctions {
         val jsonUrl = "$url/skyblock/auctions/$itemId?from=$from&to=$to"
         val json = getFromUrl(jsonUrl)
-        return Gson().fromJson<PastSkyblockAuctions>(json, PastSkyblockAuctions::class.java)
+        return Gson().fromJson(json, PastSkyblockAuctions::class.java)
     }
 
     /**

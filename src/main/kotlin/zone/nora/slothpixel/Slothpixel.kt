@@ -47,11 +47,13 @@ import zone.nora.slothpixel.player.quests.Quests
 import zone.nora.slothpixel.player.recentgames.RecentGame
 import zone.nora.slothpixel.skyblock.auctions.PastSkyblockAuctions
 import zone.nora.slothpixel.skyblock.auctions.SkyblockAuction
+import zone.nora.slothpixel.skyblock.bazaar.SkyblockBazaar
 import zone.nora.slothpixel.skyblock.profiles.SimpleSkyblockProfile
 import zone.nora.slothpixel.skyblock.profiles.SkyblockProfile
 import zone.nora.slothpixel.util.JsonUtil.convertToJsonArray
 import zone.nora.slothpixel.util.TimeUtil
 import zone.nora.slothpixel.util.exceptions.SlothpixelApiException
+import zone.nora.slothpixel.util.exceptions.impl.InvalidItemIdException
 import zone.nora.slothpixel.util.exceptions.impl.InvalidMinigameException
 import zone.nora.slothpixel.util.exceptions.impl.InvalidPlayerException
 import zone.nora.slothpixel.util.exceptions.impl.ProfileNotFoundException
@@ -265,6 +267,18 @@ class Slothpixel {
     }
 
     /**
+     * Returns Skyblock Bazaar data about a specified item.
+     * https://docs.slothpixel.me/#tag/skyblock/paths/~1skyblock~1bazaar~1{itemId}/get
+     *
+     * @param itemId Item id. These can be found here: https://api.slothpixel.me/api/skyblock/items
+     */
+    fun getSkyblockBazaar(itemId: String): SkyblockBazaar {
+        val jsonUrl = "$url/skyblock/bazaar/$itemId"
+        val json = getFromUrl(jsonUrl)
+        return Gson().fromJson(json, SkyblockBazaar::class.java)
+    }
+
+    /**
      * https://docs.slothpixel.me/#tag/health
      *
      * @return Health object.
@@ -284,6 +298,7 @@ class Slothpixel {
                 "Failed to get player uuid" -> throw InvalidPlayerException()
                 "Profile not found!" -> throw ProfileNotFoundException()
                 "Invalid minigame name!" -> throw InvalidMinigameException()
+                "Invalid itemId" -> throw InvalidItemIdException()
                 else -> throw SlothpixelApiException(json["error"].asString)
             }
         }

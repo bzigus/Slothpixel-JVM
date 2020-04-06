@@ -39,6 +39,11 @@ import com.google.gson.JsonParser
 import zone.nora.slothpixel.bans.Bans
 import zone.nora.slothpixel.boosters.Booster
 import zone.nora.slothpixel.boosters.Boosters
+import zone.nora.slothpixel.constants.achievements.AchievementsConstant
+import zone.nora.slothpixel.constants.achievements.guild.GuildAchievementsConstant
+import zone.nora.slothpixel.constants.gametype.GameType
+import zone.nora.slothpixel.constants.languages.Language
+import zone.nora.slothpixel.constants.languages.LanguagesConstant
 import zone.nora.slothpixel.guild.Guild
 import zone.nora.slothpixel.health.Health
 import zone.nora.slothpixel.player.Player
@@ -64,10 +69,10 @@ import java.io.InputStreamReader
 import java.net.URL
 import java.net.URLConnection
 import java.util.*
+import kotlin.collections.HashMap
 
 /*
  * Created by Nora Cos on 14/02/20.
- * Last modified 16/02/20.
  */
 class Slothpixel {
     private val url = "https://api.slothpixel.me/api"
@@ -289,6 +294,20 @@ class Slothpixel {
         val json = getFromUrl(jsonUrl)
         return gson.fromJson<Health>(json, Health::class.java)
     }
+
+    fun getAchievementsConstant(): AchievementsConstant =
+        Gson().fromJson(getFromUrl("$url/constants/achievements_extended"), AchievementsConstant::class.java)
+
+    fun getGameTypesConstant(): Array<GameType> {
+        val json = JsonParser().parse(getPage("$url/constants/game_types")).asJsonArray
+        return Gson().fromJson(json, Array<GameType>::class.java)
+    }
+
+    fun getGuildAchievementsConstant(): GuildAchievementsConstant =
+        Gson().fromJson(getFromUrl("$url/constants/guild_achievements"), GuildAchievementsConstant::class.java)
+
+    fun getLanguagesConstant(): LanguagesConstant =
+        Gson().fromJson(getFromUrl("$url/constants/languages"), LanguagesConstant::class.java)
 
     // Parses errors
     private fun getFromUrl(url: String): JsonObject {

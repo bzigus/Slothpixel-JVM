@@ -4,6 +4,7 @@ import com.google.gson.annotations.SerializedName
 import zone.nora.slothpixel.player.links.Links
 import zone.nora.slothpixel.player.rewards.Rewards
 import zone.nora.slothpixel.player.stats.Stats
+import zone.nora.slothpixel.player.voting.Voting
 
 class Player {
     @SerializedName("uuid")
@@ -80,6 +81,9 @@ class Player {
 
     @SerializedName("rewards")
     val rewards = Rewards()
+
+    @SerializedName("voting")
+    val voting = Voting()
 
     @SerializedName("links")
     val links = Links()

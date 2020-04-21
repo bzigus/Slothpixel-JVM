@@ -34,6 +34,7 @@
 package zone.nora.slothpixel
 
 import com.google.gson.Gson
+import com.google.gson.JsonArray
 import com.google.gson.JsonObject
 import com.google.gson.JsonParser
 import zone.nora.slothpixel.bans.Bans
@@ -42,7 +43,6 @@ import zone.nora.slothpixel.boosters.Boosters
 import zone.nora.slothpixel.constants.achievements.AchievementsConstant
 import zone.nora.slothpixel.constants.achievements.guild.GuildAchievementsConstant
 import zone.nora.slothpixel.constants.gametype.GameType
-import zone.nora.slothpixel.constants.languages.Language
 import zone.nora.slothpixel.constants.languages.LanguagesConstant
 import zone.nora.slothpixel.guild.Guild
 import zone.nora.slothpixel.health.Health
@@ -50,6 +50,7 @@ import zone.nora.slothpixel.player.Player
 import zone.nora.slothpixel.player.achievements.Achievements
 import zone.nora.slothpixel.player.quests.Quests
 import zone.nora.slothpixel.player.recentgames.RecentGame
+import zone.nora.slothpixel.player.simpleprofile.SimpleProfile
 import zone.nora.slothpixel.skyblock.auctions.PastSkyblockAuctions
 import zone.nora.slothpixel.skyblock.auctions.SkyblockAuction
 import zone.nora.slothpixel.skyblock.bazaar.SkyblockBazaar
@@ -58,10 +59,7 @@ import zone.nora.slothpixel.skyblock.profiles.SkyblockProfile
 import zone.nora.slothpixel.util.JsonUtil.convertToJsonArray
 import zone.nora.slothpixel.util.TimeUtil
 import zone.nora.slothpixel.util.exceptions.SlothpixelApiException
-import zone.nora.slothpixel.util.exceptions.impl.InvalidItemIdException
-import zone.nora.slothpixel.util.exceptions.impl.InvalidMinigameException
-import zone.nora.slothpixel.util.exceptions.impl.InvalidPlayerException
-import zone.nora.slothpixel.util.exceptions.impl.ProfileNotFoundException
+import zone.nora.slothpixel.util.exceptions.impl.*
 import java.io.BufferedReader
 import java.io.FileNotFoundException
 import java.io.IOException
@@ -69,7 +67,6 @@ import java.io.InputStreamReader
 import java.net.URL
 import java.net.URLConnection
 import java.util.*
-import kotlin.collections.HashMap
 
 /*
  * Created by Nora Cos on 14/02/20.
@@ -292,7 +289,43 @@ class Slothpixel {
         val gson = Gson()
         val jsonUrl = "$url/health"
         val json = getFromUrl(jsonUrl)
-        return gson.fromJson<Health>(json, Health::class.java)
+        return gson.fromJson(json, Health::class.java)
+    }
+
+    /**
+     * Return an array of Simple Player Profiles ordered by a specified stat.
+     * This usually throws an exception due to how Slothpixel/MongoDB handles stuff. I don't really know why this happens but it does.
+     *
+     * @see SimpleProfile
+     * @param stat The stat in question. Requires the full path when used with nested objects like stats.Arcade.wins
+     * @param limit How many objects you want in the array.
+     * @param sortOrder Set this to true if you want the order to be reversed (ie lowest stats first).
+     * @param showAdmins Hypixel Admins can manipulate their stats at will, so it usually doesn't make sense to include them in leaderboards. If you would like them to show up, set this it true.
+     * @return Array of Simple Player Profiles ordered by a specified stat.
+     */
+    @JvmOverloads
+    @Throws(QueryFailedException::class)
+    fun getPlayerLeaderboard(stat: String, limit: Int = 100, ascendingOrder: Boolean = false, showAdmins: Boolean = false): Array<SimpleProfile> {
+        val json = getLeaderboard("players", stat = stat, limit = limit, ascendingOrder = ascendingOrder, showAdmins = showAdmins)
+        return Gson().fromJson(json, Array<SimpleProfile>::class.java)
+    }
+
+    /**
+     * Return an array of Guild Objects ordered by a specific guild stat.
+     * This also may throw an exception, but has a much higher success rate than the player leaderboard endpoint in my personal experience.
+     * Guild member objects in Guild objects retrieved from this method **WILL NOT** have the profile field!! It will return null!!
+     *
+     * @param stat The guild stat in question. Requires the full path when used with nested objects like exp_by_game.UHC
+     * @param limit How many objects you want in the array.
+     * @param sortOrder Set this to true if you want the order to be reversed (ie lowest stats first).
+     * @param showAdmins Hypixel Admins can manipulate their stats at will, so it usually doesn't make sense to include them in leaderboards. If you would like them to show up, set this it true.
+     * @return Array of Simple Player Profiles ordered by a specified stat.
+     */
+    @JvmOverloads
+    @Throws(QueryFailedException::class)
+    fun getGuildLeaderboard(stat: String, limit: Int = 100, ascendingOrder: Boolean = false, showAdmins: Boolean = false): Array<Guild> {
+        val json = getLeaderboard("guilds", stat = stat, limit = limit, ascendingOrder = ascendingOrder, showAdmins = showAdmins)
+        return Gson().fromJson(json, Array<Guild>::class.java)
     }
 
     fun getAchievementsConstant(): AchievementsConstant =
@@ -309,6 +342,15 @@ class Slothpixel {
     fun getLanguagesConstant(): LanguagesConstant =
         Gson().fromJson(getFromUrl("$url/constants/languages"), LanguagesConstant::class.java)
 
+    @JvmOverloads
+    private fun getLeaderboard(type: String, stat: String, limit: Int = 100, ascendingOrder: Boolean = false, showAdmins: Boolean = false): JsonArray {
+        var jsonUrl = "$url/leaderboards?type=$type&sortBy=$stat"
+        if (limit in 1..1000 && limit != 100) jsonUrl += "&limit=$limit"
+        if (ascendingOrder) jsonUrl += "&sortOrder=asc"
+        if (showAdmins) jsonUrl += "&significant=${!showAdmins}"
+        return JsonParser().parse(getPage(jsonUrl)).asJsonArray
+    }
+
     // Parses errors
     private fun getFromUrl(url: String): JsonObject {
         val json = readJsonUrl(url)
@@ -318,6 +360,7 @@ class Slothpixel {
                 "Profile not found!" -> throw ProfileNotFoundException()
                 "Invalid minigame name!" -> throw InvalidMinigameException()
                 "Invalid itemId" -> throw InvalidItemIdException()
+                "Query failed" -> throw QueryFailedException()
                 else -> throw SlothpixelApiException(json["error"].asString)
             }
         }

@@ -1,6 +1,7 @@
 package zone.nora.slothpixel.skyblock.items
 
 import com.google.gson.annotations.SerializedName
+import zone.nora.slothpixel.skyblock.items.attributes.SkyblockItemAttributes
 
 class SkyblockItem {
     @SerializedName("item_id")
@@ -14,4 +15,10 @@ class SkyblockItem {
 
     @SerializedName("lore")
     val lore = ArrayList<String>()
+
+    @SerializedName("attributes")
+    val attributes = SkyblockItemAttributes()
+
+    @SerializedName("damage")
+    val damage = 0
 }

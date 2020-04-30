@@ -37,6 +37,7 @@ import com.google.gson.Gson
 import com.google.gson.JsonArray
 import com.google.gson.JsonObject
 import com.google.gson.JsonParser
+import com.google.gson.reflect.TypeToken
 import zone.nora.slothpixel.bans.Bans
 import zone.nora.slothpixel.boosters.Booster
 import zone.nora.slothpixel.boosters.Boosters
@@ -56,7 +57,6 @@ import zone.nora.slothpixel.skyblock.auctions.SkyblockAuction
 import zone.nora.slothpixel.skyblock.bazaar.SkyblockBazaar
 import zone.nora.slothpixel.skyblock.profiles.SimpleSkyblockProfile
 import zone.nora.slothpixel.skyblock.profiles.SkyblockProfile
-import zone.nora.slothpixel.util.JsonUtil.convertToJsonArray
 import zone.nora.slothpixel.util.TimeUtil
 import zone.nora.slothpixel.util.exceptions.SlothpixelApiException
 import zone.nora.slothpixel.util.exceptions.impl.*
@@ -67,6 +67,7 @@ import java.io.InputStreamReader
 import java.net.URL
 import java.net.URLConnection
 import java.util.*
+import kotlin.collections.HashMap
 
 /*
  * Created by Nora Cos on 14/02/20.
@@ -211,11 +212,11 @@ class Slothpixel {
      * @param playerNameOrUUID Username or UUID of a player.
      * @return Array of player's Skyblock Profiles
      */
-    fun getSkyblockProfiles(playerNameOrUUID: String): Array<SimpleSkyblockProfile> {
+    fun getSkyblockProfiles(playerNameOrUUID: String): HashMap<String, SimpleSkyblockProfile> {
         val player = playerNameOrUUID.replace("-", "")
         val jsonUrl = "$url/skyblock/profiles/$player"
         val json = getFromUrl(jsonUrl)
-        return Gson().fromJson(convertToJsonArray(json), Array<SimpleSkyblockProfile>::class.java)
+        return Gson().fromJson(json, typeToken<HashMap<String, SimpleSkyblockProfile>>())
     }
 
     /**
@@ -342,7 +343,6 @@ class Slothpixel {
     fun getLanguagesConstant(): LanguagesConstant =
         Gson().fromJson(getFromUrl("$url/constants/languages"), LanguagesConstant::class.java)
 
-    @JvmOverloads
     private fun getLeaderboard(type: String, stat: String, limit: Int = 100, ascendingOrder: Boolean = false, showAdmins: Boolean = false): JsonArray {
         var jsonUrl = "$url/leaderboards?type=$type&sortBy=$stat"
         if (limit in 1..1000 && limit != 100) jsonUrl += "&limit=$limit"
@@ -384,4 +384,6 @@ class Slothpixel {
         serverResponse.close()
         return response
     }
+
+    private inline fun <reified T> typeToken() = object: TypeToken<T>() {}.type
 }

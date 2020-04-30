@@ -3,6 +3,9 @@ package zone.nora.slothpixel.skyblock.bazaar.status
 import com.google.gson.annotations.SerializedName
 
 class SkyblockBazaarQuickStatus {
+    @SerializedName("product_id")
+    val productId = ""
+
     @SerializedName("buyPrice")
     val buyPrice = 0
 

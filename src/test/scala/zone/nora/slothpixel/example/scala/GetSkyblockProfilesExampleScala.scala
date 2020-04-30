@@ -7,10 +7,10 @@ object GetSkyblockProfilesExampleScala {
     // Make an instance of the Slothpixel API.
     val slothpixel = new Slothpixel
     // Save a request as a local variable.
-    val profiles = slothpixel.getSkyblockProfiles("bspwm")
+    val profiles = slothpixel.getSkyblockProfiles("bspwm").values()
 
     // Get data for each profile.
-    profiles.foreach(profile => {
+    profiles.forEach(profile => {
       println(s"Profile id: ${profile.getProfileId}")
       println(s"Profile name: ${profile.getCuteName}")
       println("Members:")

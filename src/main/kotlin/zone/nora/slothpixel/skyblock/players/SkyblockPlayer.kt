@@ -5,6 +5,7 @@ import zone.nora.slothpixel.player.simpleprofile.SimpleProfile
 import zone.nora.slothpixel.skyblock.items.SkyblockItem
 import zone.nora.slothpixel.skyblock.players.collection.SkyblockCollection
 import zone.nora.slothpixel.skyblock.players.minions.SkyblockMinions
+import zone.nora.slothpixel.skyblock.players.pets.SkyblockPet
 import zone.nora.slothpixel.skyblock.players.skills.SkyblockSkills
 import zone.nora.slothpixel.skyblock.players.stats.SkyblockPlayerStats
 import zone.nora.slothpixel.skyblock.players.slayer.Slayers
@@ -45,6 +46,9 @@ class SkyblockPlayer {
 
     @SerializedName("quiver")
     val quiver = ArrayList<SkyblockItem>()
+
+    @SerializedName("pets")
+    val pets = ArrayList<SkyblockPet>()
 
     @SerializedName("skills")
     val skills = SkyblockSkills()

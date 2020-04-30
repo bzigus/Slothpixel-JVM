@@ -19,6 +19,9 @@ class Achievements {
     @SerializedName("games")
     val games = Games()
 
+    @SerializedName("tracked")
+    val tracked = ArrayList<String>()
+
     @SerializedName("rewards")
     val rewards = HashMap<String, Long>()
 }

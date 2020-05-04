@@ -47,6 +47,15 @@ class SkyblockPlayer {
     @SerializedName("quiver")
     val quiver = ArrayList<SkyblockItem>()
 
+    @SerializedName("fairy_souls_collected")
+    val fairySoulsCollected = 0
+
+    @SerializedName("fairy_souls")
+    val fairySouls = 0
+
+    @SerializedName("fairy_exchanges")
+    val fairyExchanges = 0
+
     @SerializedName("pets")
     val pets = ArrayList<SkyblockPet>()
 

@@ -5,10 +5,12 @@
 API Wrapper for the [Slothpixel API](https://docs.slothpixel.me) for the Java Virtual Machine.
 
 Currently with this library you can:
- * Get individual player stats, quests and achievements.
+ * Get individual player stats, quests, achievements and recently played games.
  * Get stats for a guild and its members.
  * Get booster data.
- * Get SkyBlock profile and auction data.
+ * Get Leaderboard data.
+ * Get [Hypixel Resources](https://github.com/slothpixel/hypixelconstants/tree/master/build)
+ * Get SkyBlock profile, auction and bazaar data.
  * Get staff and Watchdog ban data.
  * Get Slothpixel service status/health data.  
 
@@ -55,7 +57,7 @@ dependencies {
     // Required Kotlin sdk. You do not need to include this if your project is written in Kotlin.
     implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.3.61'
     // The actual project
-    implementation 'com.github.mew:Slothpixel-JVM:0.1.3'
+    implementation 'com.github.mew:Slothpixel-JVM:master-SNAPSHOT'
 }
 ```
 It should work well with any JVM language (just note that it is targeted towards JDK 8).

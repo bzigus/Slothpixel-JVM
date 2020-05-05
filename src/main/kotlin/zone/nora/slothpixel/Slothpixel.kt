@@ -240,13 +240,14 @@ class Slothpixel {
      * https://docs.slothpixel.me/#tag/skyblock/paths/~1skyblock~1auctions/get
      *
      * @param limit How many auctions you want to be returned. This caps at 1000.
+     * @param page Pages allow you to split the data using the limit param... read: https://docs.slothpixel.me/#operation/getSkyblockAuctions
      * @param id Item id for filtering items. These can be found here: https://api.slothpixel.me/api/skyblock/items
      * @param auctionUUID UUID of a specific auction.
      * @param itemUUID UUID of a specific item.
      */
     @JvmOverloads
-    fun getSkyblockAuctions(limit: Int = 100, id: String = "", auctionUUID: String = "", itemUUID: String = ""): Array<SkyblockAuction> {
-        var jsonUrl = "$url/skyblock/auctions?limit=$limit"
+    fun getSkyblockAuctions(limit: Int = 100, page: Int = 0, id: String = "", auctionUUID: String = "", itemUUID: String = ""): Array<SkyblockAuction> {
+        var jsonUrl = "$url/skyblock/auctions?limit=$limit&page=$page"
         if (id != "") jsonUrl += "&id=$id"
         if (auctionUUID != "") jsonUrl += "&auctionUUID=$auctionUUID"
         if (itemUUID != "") jsonUrl += "&itemUUID=$itemUUID"

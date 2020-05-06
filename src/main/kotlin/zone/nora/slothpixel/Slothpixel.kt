@@ -67,6 +67,7 @@ import java.io.InputStreamReader
 import java.net.URL
 import java.net.URLConnection
 import java.util.*
+import javax.swing.SortOrder
 import kotlin.collections.HashMap
 
 /*
@@ -242,15 +243,20 @@ class Slothpixel {
      * @param limit How many auctions you want to be returned. This caps at 1000.
      * @param page Pages allow you to split the data using the limit param... read: https://docs.slothpixel.me/#operation/getSkyblockAuctions
      * @param id Item id for filtering items. These can be found here: https://api.slothpixel.me/api/skyblock/items
+     * @param sortBy Field to sort the auctions by.
+     * @param ascendingOrder Set this to true if you want the order to be reversed (ie lowest value first).
      * @param auctionUUID UUID of a specific auction.
      * @param itemUUID UUID of a specific item.
      */
     @JvmOverloads
-    fun getSkyblockAuctions(limit: Int = 100, page: Int = 0, id: String = "", auctionUUID: String = "", itemUUID: String = ""): Array<SkyblockAuction> {
+    fun getSkyblockAuctions(limit: Int = 100, page: Int = 0, id: String = "", sortBy: String = "", ascendingOrder: Boolean = false, auctionUUID: String = "", itemUUID: String = ""): Array<SkyblockAuction> {
+        // dear god i hope nobody is using this with plain java
         var jsonUrl = "$url/skyblock/auctions?limit=$limit&page=$page"
         if (id != "") jsonUrl += "&id=$id"
         if (auctionUUID != "") jsonUrl += "&auctionUUID=$auctionUUID"
         if (itemUUID != "") jsonUrl += "&itemUUID=$itemUUID"
+        if (sortBy != "") jsonUrl += "&sortBy=$sortBy"
+        if (ascendingOrder) jsonUrl += "&sortOrder=asc"
         val json = JsonParser().parse(getPage(jsonUrl)).asJsonArray
         return Gson().fromJson(json, Array<SkyblockAuction>::class.java)
     }
@@ -301,7 +307,7 @@ class Slothpixel {
      * @see SimpleProfile
      * @param stat The stat in question. Requires the full path when used with nested objects like stats.Arcade.wins
      * @param limit How many objects you want in the array.
-     * @param sortOrder Set this to true if you want the order to be reversed (ie lowest stats first).
+     * @param ascendingOrder Set this to true if you want the order to be reversed (ie lowest stats first).
      * @param showAdmins Hypixel Admins can manipulate their stats at will, so it usually doesn't make sense to include them in leaderboards. If you would like them to show up, set this it true.
      * @return Array of Simple Player Profiles ordered by a specified stat.
      */

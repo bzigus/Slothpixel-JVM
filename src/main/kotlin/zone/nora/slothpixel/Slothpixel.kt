@@ -52,6 +52,7 @@ import zone.nora.slothpixel.player.achievements.Achievements
 import zone.nora.slothpixel.player.quests.Quests
 import zone.nora.slothpixel.player.recentgames.RecentGame
 import zone.nora.slothpixel.player.simpleprofile.SimpleProfile
+import zone.nora.slothpixel.player.status.PlayerStatus
 import zone.nora.slothpixel.skyblock.auctions.PastSkyblockAuctions
 import zone.nora.slothpixel.skyblock.auctions.SkyblockAuction
 import zone.nora.slothpixel.skyblock.bazaar.SkyblockBazaar
@@ -70,7 +71,6 @@ import kotlin.collections.HashMap
  * Created by Nora Cos on 14/02/20.
  */
 class Slothpixel(private val url: String = "https://api.slothpixel.me/api") {
-
     /**
      * Return a player object of the specified name or UUID.
      * https://docs.slothpixel.me/#tag/player/
@@ -135,6 +135,19 @@ class Slothpixel(private val url: String = "https://api.slothpixel.me/api") {
         val jsonUrl = "$url/players/$name/recentGames"
         val json = JsonParser().parse(getPage(jsonUrl)).asJsonArray
         return gson.fromJson(json, Array<RecentGame>::class.java)
+    }
+
+    /**
+     * Returns the current online status and game of a player.
+     * https://docs.slothpixel.me/#operation/getPlayerStatus
+     *
+     * @param nameOrUUID Username or UUID of a player.
+     * @return Player Status object.
+     */
+    fun getPlayerStatus(nameOrUUID: String): PlayerStatus {
+        val name = nameOrUUID.replace("-", "")
+        val json = getFromUrl("$url/players/$name/status")
+        return Gson().fromJson(json, PlayerStatus::class.java)
     }
 
     /**

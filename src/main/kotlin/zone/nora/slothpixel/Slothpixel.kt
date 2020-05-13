@@ -60,21 +60,16 @@ import zone.nora.slothpixel.skyblock.profiles.SkyblockProfile
 import zone.nora.slothpixel.util.TimeUtil
 import zone.nora.slothpixel.util.exceptions.SlothpixelApiException
 import zone.nora.slothpixel.util.exceptions.impl.*
-import java.io.BufferedReader
-import java.io.FileNotFoundException
-import java.io.IOException
-import java.io.InputStreamReader
+import java.io.*
 import java.net.URL
 import java.net.URLConnection
 import java.util.*
-import javax.swing.SortOrder
 import kotlin.collections.HashMap
 
 /*
  * Created by Nora Cos on 14/02/20.
  */
-class Slothpixel {
-    private val url = "https://api.slothpixel.me/api"
+class Slothpixel(private val url: String = "https://api.slothpixel.me/api") {
 
     /**
      * Return a player object of the specified name or UUID.

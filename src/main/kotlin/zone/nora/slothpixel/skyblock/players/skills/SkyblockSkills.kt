@@ -30,4 +30,6 @@ class SkyblockSkills {
     @SerializedName("runecrafting")
     val runecrafting = SkyblockSkill()
 
+    @SerializedName("taming")
+    val taming = SkyblockSkill()
 }

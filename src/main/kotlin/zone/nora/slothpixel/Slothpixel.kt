@@ -70,7 +70,10 @@ import kotlin.collections.HashMap
 /*
  * Created by Nora Cos on 14/02/20.
  */
-class Slothpixel(private val url: String = "https://api.slothpixel.me/api") {
+class Slothpixel(
+    private val url: String = "https://api.slothpixel.me/api",
+    var apiKey: String? = null
+) {
     /**
      * Return a player object of the specified name or UUID.
      * https://docs.slothpixel.me/#tag/player/
@@ -89,6 +92,7 @@ class Slothpixel(private val url: String = "https://api.slothpixel.me/api") {
     /**
      * @see getPlayer(nameOrUUID)
      */
+    @Deprecated("", ReplaceWith("getPlayer(uuid.toString())"))
     fun getPlayer(uuid: UUID): Player = getPlayer(uuid.toString())
 
     /**
@@ -132,7 +136,7 @@ class Slothpixel(private val url: String = "https://api.slothpixel.me/api") {
     fun getPlayerRecentGames(nameOrUUID: String): Array<RecentGame> {
         val name = nameOrUUID.replace("-", "")
         val gson = Gson()
-        val jsonUrl = "$url/players/$name/recentGames"
+        val jsonUrl = "$url/players/$name/recentGames${keyParam()}"
         val json = JsonParser().parse(getPage(jsonUrl)).asJsonArray
         return gson.fromJson(json, Array<RecentGame>::class.java)
     }
@@ -201,7 +205,7 @@ class Slothpixel(private val url: String = "https://api.slothpixel.me/api") {
      * @param game Standard name (https://github.com/slothpixel/core/wiki/Standard-naming) of a game.
      */
     fun getBoostersByGame(game: String = ""): Array<Booster> {
-        val jsonUrl = "$url/boosters/$game"
+        val jsonUrl = "$url/boosters/$game${keyParam()}"
         val json = try {
             JsonParser().parse(getPage(jsonUrl)).asJsonArray
         } catch (ex: IllegalStateException) {
@@ -265,7 +269,7 @@ class Slothpixel(private val url: String = "https://api.slothpixel.me/api") {
         if (itemUUID != "") jsonUrl += "&itemUUID=$itemUUID"
         if (sortBy != "") jsonUrl += "&sortBy=$sortBy"
         if (ascendingOrder) jsonUrl += "&sortOrder=asc"
-        val json = JsonParser().parse(getPage(jsonUrl)).asJsonArray
+        val json = JsonParser().parse(getPage("$jsonUrl${keyParam(false)}")).asJsonArray
         return Gson().fromJson(json, Array<SkyblockAuction>::class.java)
     }
 
@@ -363,12 +367,12 @@ class Slothpixel(private val url: String = "https://api.slothpixel.me/api") {
         if (limit in 1..1000 && limit != 100) jsonUrl += "&limit=$limit"
         if (ascendingOrder) jsonUrl += "&sortOrder=asc"
         if (showAdmins) jsonUrl += "&significant=${!showAdmins}"
-        return JsonParser().parse(getPage(jsonUrl)).asJsonArray
+        return JsonParser().parse(getPage("$jsonUrl${keyParam(false)}")).asJsonArray
     }
 
     // Parses errors
     private fun getFromUrl(url: String): JsonObject {
-        val json = readJsonUrl(url)
+        val json = readJsonUrl("$url${keyParam(!url.contains("?"))}")
         if (json.has("error")) {
             when (json["error"].asString) {
                 "Failed to get player uuid" -> throw InvalidPlayerException()
@@ -399,6 +403,8 @@ class Slothpixel(private val url: String = "https://api.slothpixel.me/api") {
         serverResponse.close()
         return response
     }
+
+    private fun keyParam(q: Boolean = true): String = if (apiKey != null) "${if (q) "?" else "&"}key=$apiKey" else ""
 
     private inline fun <reified T> typeToken() = object: TypeToken<T>() {}.type
 }

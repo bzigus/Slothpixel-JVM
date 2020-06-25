@@ -32,6 +32,9 @@ class SkyblockPlayer {
     @SerializedName("armor")
     val armor = ArrayList<SkyblockItem>()
 
+    @SerializedName("wardrobe")
+    val wardrobe = ArrayList<SkyblockItem>()
+
     @SerializedName("ender_chest")
     val enderChest = ArrayList<SkyblockItem>()
 

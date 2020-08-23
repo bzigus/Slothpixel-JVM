@@ -290,6 +290,13 @@ class Slothpixel(
     }
 
     /**
+     * Returns SkyBlock Bazaar data about *all* items.
+     */
+    fun getSkyblockBazaar(): HashMap<String, SkyblockBazaar> =
+        Gson().fromJson(getFromUrl("$url/skyblock/bazaar"), typeToken<HashMap<String, SkyblockBazaar>>())
+
+
+    /**
      * Returns Skyblock Bazaar data about a specified item.
      * https://docs.slothpixel.me/#tag/skyblock/paths/~1skyblock~1bazaar~1{itemId}/get
      *

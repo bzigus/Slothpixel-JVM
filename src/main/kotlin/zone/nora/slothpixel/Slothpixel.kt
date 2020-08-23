@@ -45,6 +45,9 @@ import zone.nora.slothpixel.constants.achievements.AchievementsConstant
 import zone.nora.slothpixel.constants.achievements.guild.GuildAchievementsConstant
 import zone.nora.slothpixel.constants.gametype.GameType
 import zone.nora.slothpixel.constants.languages.Language
+import zone.nora.slothpixel.constants.modes.ModeConstant
+import zone.nora.slothpixel.constants.skyblock.collections.SkyblockCollectionsConstant
+import zone.nora.slothpixel.constants.skyblock.skills.SkyblockSkillsConstant
 import zone.nora.slothpixel.guild.Guild
 import zone.nora.slothpixel.health.Health
 import zone.nora.slothpixel.player.Player
@@ -368,11 +371,22 @@ class Slothpixel(
         return Gson().fromJson(json, Array<GameType>::class.java)
     }
 
+    fun getModesConstant(): Array<ModeConstant> {
+        val json = JsonParser().parse(getPage("$url/constants/modes")).asJsonArray
+        return Gson().fromJson(json, Array<ModeConstant>::class.java)
+    }
+
     fun getGuildAchievementsConstant(): GuildAchievementsConstant =
         Gson().fromJson(getFromUrl("$url/constants/guild_achievements"), GuildAchievementsConstant::class.java)
 
     fun getLanguagesConstant(): HashMap<String, Language> =
         Gson().fromJson(getFromUrl("$url/constants/languages"), typeToken<HashMap<String, Language>>())
+
+    fun getSkyblockCollectionsConstant(): SkyblockCollectionsConstant =
+        Gson().fromJson(getFromUrl("$url/constants/skyblock_collections"), SkyblockCollectionsConstant::class.java)
+
+    fun getSkyblockSkillsConstant(): SkyblockSkillsConstant =
+        Gson().fromJson(getFromUrl("$url/constants/skyblock_skills"), SkyblockSkillsConstant::class.java)
 
     private fun getLeaderboard(type: String, stat: String, limit: Int = 100, ascendingOrder: Boolean = false, showAdmins: Boolean = false): JsonArray {
         var jsonUrl = "$url/leaderboards?type=$type&sortBy=$stat"

@@ -7,7 +7,7 @@ object GetSkyblockAuctionExampleScala {
     // Make an instance of the Slothpixel API.
     val slothpixel = new Slothpixel
     // Save a request as a local variable.
-    val auctions = slothpixel.getSkyblockAuctions(50, 1, "HOT_POTATO_BOOK")
+    val auctions = slothpixel.getSkyblockAuctions()
 
     // Get data for each auction.
     auctions.foreach(auction => {

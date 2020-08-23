@@ -1,8 +1,8 @@
 package zone.nora.slothpixel.player
 
 import com.google.gson.annotations.SerializedName
-import zone.nora.slothpixel.player.links.Links
-import zone.nora.slothpixel.player.rewards.Rewards
+import zone.nora.slothpixel.player.links.PlayerLinks
+import zone.nora.slothpixel.player.rewards.PlayerRewards
 import zone.nora.slothpixel.player.stats.Stats
 import zone.nora.slothpixel.player.voting.Voting
 
@@ -80,13 +80,13 @@ class Player {
     val isContributor = false
 
     @SerializedName("rewards")
-    val rewards = Rewards()
+    val rewards = PlayerRewards()
 
     @SerializedName("voting")
     val voting = Voting()
 
     @SerializedName("links")
-    val links = Links()
+    val links = PlayerLinks()
 
     @SerializedName("stats")
     val stats = Stats()

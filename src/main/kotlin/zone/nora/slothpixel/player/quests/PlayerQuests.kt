@@ -2,7 +2,7 @@ package zone.nora.slothpixel.player.quests
 
 import com.google.gson.annotations.SerializedName
 
-class Quests {
+class PlayerQuests {
     @SerializedName("quests_completed")
     val questsCompleted = 0
 

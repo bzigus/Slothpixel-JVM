@@ -1,11 +1,8 @@
-package zone.nora.slothpixel.bans.watchdog
+package zone.nora.slothpixel.bans.staff
 
 import com.google.gson.annotations.SerializedName
 
-class Watchdog {
-    @SerializedName("last_minute")
-    val lastMinute = 0
-
+class StaffBans {
     @SerializedName("daily")
     val daily = 0
 

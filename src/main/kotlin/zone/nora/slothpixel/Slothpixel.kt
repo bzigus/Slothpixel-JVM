@@ -44,12 +44,12 @@ import zone.nora.slothpixel.boosters.Boosters
 import zone.nora.slothpixel.constants.achievements.AchievementsConstant
 import zone.nora.slothpixel.constants.achievements.guild.GuildAchievementsConstant
 import zone.nora.slothpixel.constants.gametype.GameType
-import zone.nora.slothpixel.constants.languages.LanguagesConstant
+import zone.nora.slothpixel.constants.languages.Language
 import zone.nora.slothpixel.guild.Guild
 import zone.nora.slothpixel.health.Health
 import zone.nora.slothpixel.player.Player
-import zone.nora.slothpixel.player.achievements.Achievements
-import zone.nora.slothpixel.player.quests.Quests
+import zone.nora.slothpixel.player.achievements.PlayerAchievements
+import zone.nora.slothpixel.player.quests.PlayerQuests
 import zone.nora.slothpixel.player.recentgames.RecentGame
 import zone.nora.slothpixel.player.simpleprofile.SimpleProfile
 import zone.nora.slothpixel.player.status.PlayerStatus
@@ -102,12 +102,12 @@ class Slothpixel(
      * @param nameOrUUID Username or UUID of a player.
      * @return Achievements object of the specified name or UUID.
      */
-    fun getPlayerAchievements(nameOrUUID: String): Achievements {
+    fun getPlayerAchievements(nameOrUUID: String): PlayerAchievements {
         val name = nameOrUUID.replace("-", "")
         val gson = Gson()
         val jsonUrl = "$url/players/$name/achievements"
         val json = getFromUrl(jsonUrl)
-        return gson.fromJson(json, Achievements::class.java)
+        return gson.fromJson(json, PlayerAchievements::class.java)
     }
 
     /**
@@ -117,12 +117,12 @@ class Slothpixel(
      * @param nameOrUUID Username or UUID of a player.
      * @return Quests object of the specified name or UUID.
      */
-    fun getPlayerQuests(nameOrUUID: String): Quests {
+    fun getPlayerQuests(nameOrUUID: String): PlayerQuests {
         val name = nameOrUUID.replace("-", "")
         val gson = Gson()
         val jsonUrl = "$url/players/$name/quests"
         val json = getFromUrl(jsonUrl)
-        return gson.fromJson(json, Quests::class.java)
+        return gson.fromJson(json, PlayerQuests::class.java)
     }
 
     /**
@@ -174,6 +174,7 @@ class Slothpixel(
     /**
      * @see getGuild(playerNameOrUUID)
      */
+    @Deprecated("", ReplaceWith("getGuild(playerUUID.toString())"))
     fun getGuild(playerUUID: UUID): Guild = getGuild(playerUUID.toString())
 
     /**
@@ -359,8 +360,8 @@ class Slothpixel(
     fun getGuildAchievementsConstant(): GuildAchievementsConstant =
         Gson().fromJson(getFromUrl("$url/constants/guild_achievements"), GuildAchievementsConstant::class.java)
 
-    fun getLanguagesConstant(): LanguagesConstant =
-        Gson().fromJson(getFromUrl("$url/constants/languages"), LanguagesConstant::class.java)
+    fun getLanguagesConstant(): HashMap<String, Language> =
+        Gson().fromJson(getFromUrl("$url/constants/languages"), typeToken<HashMap<String, Language>>())
 
     private fun getLeaderboard(type: String, stat: String, limit: Int = 100, ascendingOrder: Boolean = false, showAdmins: Boolean = false): JsonArray {
         var jsonUrl = "$url/leaderboards?type=$type&sortBy=$stat"

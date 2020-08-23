@@ -3,7 +3,7 @@ package zone.nora.slothpixel.player.achievements
 import com.google.gson.annotations.SerializedName
 import zone.nora.slothpixel.player.achievements.games.Games
 
-class Achievements {
+class PlayerAchievements {
     @SerializedName("achievement_points")
     val achievementPoints = 0
 

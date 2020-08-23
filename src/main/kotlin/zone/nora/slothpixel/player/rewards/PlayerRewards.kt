@@ -2,7 +2,7 @@ package zone.nora.slothpixel.player.rewards
 
 import com.google.gson.annotations.SerializedName
 
-class Rewards {
+class PlayerRewards {
     @SerializedName("streak_current")
     val streakCurrent = 0
 

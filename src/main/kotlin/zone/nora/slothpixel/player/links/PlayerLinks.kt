@@ -2,7 +2,7 @@ package zone.nora.slothpixel.player.links
 
 import com.google.gson.annotations.SerializedName
 
-class Links {
+class PlayerLinks {
     @SerializedName("TWITTER")
     val twitter = ""
 

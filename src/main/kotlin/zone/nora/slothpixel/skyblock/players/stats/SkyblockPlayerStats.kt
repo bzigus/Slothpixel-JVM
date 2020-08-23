@@ -5,6 +5,7 @@ import zone.nora.slothpixel.skyblock.players.stats.auctions.SkyblockPlayerAuctio
 import zone.nora.slothpixel.skyblock.players.stats.deaths.SkyblockPlayerDeaths
 import zone.nora.slothpixel.skyblock.players.stats.itemsfished.SkyblockPlayerItemsFished
 import zone.nora.slothpixel.skyblock.players.stats.kills.SkyblockPlayerKills
+import zone.nora.slothpixel.skyblock.players.stats.petmilestones.SkyblockPlayerPetMilestones
 import zone.nora.slothpixel.skyblock.players.stats.winterrecords.SkyblockPlayerWinterRecords
 
 class SkyblockPlayerStats {
@@ -27,10 +28,10 @@ class SkyblockPlayerStats {
     val enderCrystalsDestroyed = 0
 
     @SerializedName("end_race_best_time")
-    val endRaceBestTime = 0.0
+    val endRaceBestTime = 0.0f
 
     @SerializedName("chicken_race_best_time")
-    val chickenRaceBestTime = 0.0
+    val chickenRaceBestTime = 0.0f
 
     @SerializedName("gifts_given")
     val giftsGiven = 0
@@ -46,4 +47,7 @@ class SkyblockPlayerStats {
 
     @SerializedName("winter_records")
     val winterRecords = SkyblockPlayerWinterRecords()
+
+    @SerializedName("pet_milestones")
+    val petMilestones = SkyblockPlayerPetMilestones()
 }

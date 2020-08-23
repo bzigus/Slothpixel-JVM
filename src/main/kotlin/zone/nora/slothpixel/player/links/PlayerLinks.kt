@@ -4,26 +4,26 @@ import com.google.gson.annotations.SerializedName
 
 class PlayerLinks {
     @SerializedName("TWITTER")
-    val twitter = ""
+    val twitter: String? = null
 
     @SerializedName("YOUTUBE")
-    val youtube = ""
+    val youtube: String? = null
 
     @SerializedName("INSTAGRAM")
-    val instagram = ""
+    val instagram: String? = null
 
     @SerializedName("TWITCH")
-    val twitch = ""
+    val twitch: String? = null
 
     @SerializedName("MIXER")
-    val mixer = ""
+    val mixer: String? = null
 
     @SerializedName("DISCORD")
-    val discord = ""
+    val discord: String? = null
 
     /**
      * Hypixel Forums link.
      */
     @SerializedName("HYPIXEL")
-    val hypixel = ""
+    val hypixel: String? = null
 }

@@ -19,16 +19,16 @@ class SkyblockPlayerAuctions {
     val bids = 0
 
     @SerializedName("highest_bid")
-    val highestBid = 0
+    val highestBid = 0L
 
     @SerializedName("total_fees")
-    val totalFees = 0
+    val totalFees = 0L
 
     @SerializedName("gold_earned")
-    val goldEarned = 0
+    val goldEarned = 0L
 
     @SerializedName("gold_spent")
-    val goldSpent = 0
+    val goldSpent = 0L
 
     @SerializedName("sold")
     val sold = SkyblockPlayerAuctionItems()

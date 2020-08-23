@@ -9,6 +9,9 @@ class Slayer {
     @SerializedName("xp")
     val xp = 0
 
+    @SerializedName("xp_for_next")
+    val xpForNext = 0
+
     @SerializedName("kills_tier")
     val killsTier = HashMap<String, Int>()
 }

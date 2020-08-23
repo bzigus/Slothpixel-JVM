@@ -13,4 +13,7 @@ class SkyblockProfile {
 
     @SerializedName("banking")
     val banking = Banking()
+
+    @SerializedName("unlocked_minions")
+    val unlockedMinions = HashMap<String, Int>()
 }

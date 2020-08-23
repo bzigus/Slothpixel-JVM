@@ -56,6 +56,7 @@ import zone.nora.slothpixel.player.status.PlayerStatus
 import zone.nora.slothpixel.skyblock.auctions.PastSkyblockAuctions
 import zone.nora.slothpixel.skyblock.auctions.SkyblockAuction
 import zone.nora.slothpixel.skyblock.bazaar.SkyblockBazaar
+import zone.nora.slothpixel.skyblock.items.spec.SkyblockItemSpec
 import zone.nora.slothpixel.skyblock.profiles.SimpleSkyblockProfile
 import zone.nora.slothpixel.skyblock.profiles.SkyblockProfile
 import zone.nora.slothpixel.util.TimeUtil
@@ -289,6 +290,9 @@ class Slothpixel(
         return Gson().fromJson(json, PastSkyblockAuctions::class.java)
     }
 
+    fun getSkyblockItemSpec(): HashMap<String, SkyblockItemSpec> =
+        Gson().fromJson(getFromUrl("$url/skyblock/items"), typeToken<HashMap<String, SkyblockItemSpec>>())
+
     /**
      * Returns SkyBlock Bazaar data about *all* items.
      */
@@ -382,13 +386,14 @@ class Slothpixel(
     private fun getFromUrl(url: String): JsonObject {
         val json = readJsonUrl("$url${keyParam(!url.contains("?"))}")
         if (json.has("error")) {
-            when (json["error"].asString) {
+            when (val error = json["error"].asString) {
                 "Failed to get player uuid" -> throw InvalidPlayerException()
                 "Profile not found!" -> throw ProfileNotFoundException()
                 "Invalid minigame name!" -> throw InvalidMinigameException()
                 "Invalid itemId" -> throw InvalidItemIdException()
                 "Query failed" -> throw QueryFailedException()
-                else -> throw SlothpixelApiException(json["error"].asString)
+                "Endpoint disabled for maintenance" -> throw EndpointDisabledException()
+                else -> throw SlothpixelApiException(error)
             }
         }
         return json

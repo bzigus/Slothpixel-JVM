@@ -14,4 +14,10 @@ class SkyblockPet {
 
     @SerializedName("tier")
     val tier = ""
+
+    @SerializedName("heldItem")
+    val heldItem: String? = null
+
+    @SerializedName("candyUsed")
+    val candyUsed = 0
 }

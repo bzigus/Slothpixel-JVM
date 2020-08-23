@@ -13,7 +13,7 @@ class BuildBattle {
     val wins = 0
 
     @SerializedName("w_r")
-    val wR = 0
+    val wR = 0.0
 
     @SerializedName("total_votes")
     val totalVotes = 0
@@ -38,4 +38,25 @@ class BuildBattle {
 
     @SerializedName("super_votes")
     val superVotes = 0
+
+    @SerializedName("loadout")
+    val loadout = ArrayList<String>()
+
+    @SerializedName("selected_hat")
+    val selectedHat = ""
+    
+    @SerializedName("selected_victory_dance")
+    val selectedVictoryDance = ""
+
+    @SerializedName("selected_suit")
+    val selectedSuit = ""
+
+    @SerializedName("selected_movement_trail")
+    val selectedMovementTrail = ""
+
+    @SerializedName("selected_backdrop")
+    val selectedBackdrop = ""
+
+    @SerializedName("packages")
+    val packages = ArrayList<String>()
 }

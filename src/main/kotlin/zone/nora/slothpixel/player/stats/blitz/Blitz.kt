@@ -1,9 +1,11 @@
 package zone.nora.slothpixel.player.stats.blitz
 
 import com.google.gson.annotations.SerializedName
-import zone.nora.slothpixel.player.stats.blitz.equipped.Equipped
-import zone.nora.slothpixel.player.stats.blitz.kits.Kits
-import zone.nora.slothpixel.player.stats.blitz.settings.Settings
+import zone.nora.slothpixel.player.stats.blitz.equipped.BlitzEquipped
+import zone.nora.slothpixel.player.stats.blitz.kits.BlitzKits
+import zone.nora.slothpixel.player.stats.blitz.kits.BlitzKitsStats
+import zone.nora.slothpixel.player.stats.blitz.settings.BlitzSettings
+import zone.nora.slothpixel.player.stats.blitz.votes.BlitzVotes
 
 class Blitz {
     @SerializedName("coins")
@@ -79,11 +81,23 @@ class Blitz {
     val chestsOpened = 0
 
     @SerializedName("kits_levels")
-    val kitsLevels = Kits()
+    val kitsLevels = BlitzKits()
+
+    @SerializedName("kits_stats")
+    val kitsStats = BlitzKitsStats()
 
     @SerializedName("equipped")
-    val equipped = Equipped()
+    val equipped = BlitzEquipped()
 
     @SerializedName("settings")
-    val settings = Settings()
+    val settings = BlitzSettings()
+
+    @SerializedName("votes")
+    val votes = BlitzVotes()
+
+    @SerializedName("inventories")
+    val inventories = HashMap<String, ArrayList<String>>()
+
+    @SerializedName("packages")
+    val packages = ArrayList<String>()
 }

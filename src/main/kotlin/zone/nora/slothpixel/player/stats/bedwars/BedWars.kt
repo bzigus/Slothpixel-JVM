@@ -1,8 +1,8 @@
 package zone.nora.slothpixel.player.stats.bedwars
 
 import com.google.gson.annotations.SerializedName
-import zone.nora.slothpixel.player.stats.bedwars.boxes.Boxes
-import zone.nora.slothpixel.player.stats.bedwars.gamemodes.Gamemodes
+import zone.nora.slothpixel.player.stats.bedwars.boxes.BedWarsBoxes
+import zone.nora.slothpixel.player.stats.bedwars.gamemodes.BedWarsGamemodes
 import zone.nora.slothpixel.player.stats.bedwars.resources.ResourcesCollected
 
 class BedWars {
@@ -64,13 +64,13 @@ class BedWars {
     val winstreak = 0
 
     @SerializedName("boxes")
-    val boxes = Boxes()
+    val boxes = BedWarsBoxes()
 
     @SerializedName("resources_collected")
     val resourcesCollected = ResourcesCollected()
 
     @SerializedName("gamemodes")
-    val gamemodes = Gamemodes()
+    val gamemodes = BedWarsGamemodes()
 
     @SerializedName("packages")
     val packages = ArrayList<String>()

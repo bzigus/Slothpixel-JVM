@@ -15,11 +15,12 @@ import zone.nora.slothpixel.player.stats.paintball.Paintball
 import zone.nora.slothpixel.player.stats.pit.Pit
 import zone.nora.slothpixel.player.stats.quake.Quake
 import zone.nora.slothpixel.player.stats.skyblock.SkyBlock
+import zone.nora.slothpixel.player.stats.skyclash.SkyClash
 import zone.nora.slothpixel.player.stats.skywars.SkyWars
 import zone.nora.slothpixel.player.stats.smash.Smash
 import zone.nora.slothpixel.player.stats.speeduhc.SpeedUHC
-import zone.nora.slothpixel.player.stats.tkr.TKR
-import zone.nora.slothpixel.player.stats.tnt.TNT
+import zone.nora.slothpixel.player.stats.tkr.Tkr
+import zone.nora.slothpixel.player.stats.tnt.Tnt
 import zone.nora.slothpixel.player.stats.uhc.UHC
 import zone.nora.slothpixel.player.stats.vampirez.VampireZ
 import zone.nora.slothpixel.player.stats.walls.Walls
@@ -45,7 +46,7 @@ class Stats {
     val duels = Duels()
 
     @SerializedName("TKR")
-    val tkr = TKR()
+    val tkr = Tkr()
 
     @SerializedName("Blitz")
     val blitz = Blitz()
@@ -63,7 +64,7 @@ class Stats {
     val pit = Pit()
 
     @SerializedName("SkyClash")
-    val skyClash = SkyWars()
+    val skyClash = SkyClash()
 
     @SerializedName("SkyWars")
     val skyWars = SkyWars()
@@ -78,7 +79,7 @@ class Stats {
     val smash = Smash()
 
     @SerializedName("TNT")
-    val tnt = TNT()
+    val tnt = Tnt()
 
     @SerializedName("CrazyWalls")
     val crazyWalls = CrazyWalls()

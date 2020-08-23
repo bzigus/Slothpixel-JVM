@@ -2,9 +2,9 @@ package zone.nora.slothpixel.player.stats.vampirez
 
 import com.google.gson.annotations.SerializedName
 import zone.nora.slothpixel.player.stats.vampirez.human.HumanStats
-import zone.nora.slothpixel.player.stats.vampirez.perks.Perks
+import zone.nora.slothpixel.player.stats.vampirez.perks.VampireZPerks
 import zone.nora.slothpixel.player.stats.vampirez.vampire.VampireStats
-import zone.nora.slothpixel.player.stats.vampirez.votes.Votes
+import zone.nora.slothpixel.player.stats.vampirez.votes.VampireZVotes
 
 class VampireZ {
     @SerializedName("coins")
@@ -15,6 +15,9 @@ class VampireZ {
 
     @SerializedName("zombie_kills")
     val zombieKills = 0
+    
+    @SerializedName("updated_stats")
+    val updatedStats = false
 
     @SerializedName("human_stats")
     val humanStats = HumanStats()
@@ -23,8 +26,11 @@ class VampireZ {
     val vampireStats = VampireStats()
 
     @SerializedName("perks")
-    val perks = Perks()
+    val perks = VampireZPerks()
 
     @SerializedName("votes")
-    val votes = Votes()
+    val votes = VampireZVotes()
+
+    @SerializedName("packages")
+    val packages = ArrayList<String>()
 }

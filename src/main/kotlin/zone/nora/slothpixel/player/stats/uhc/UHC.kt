@@ -1,6 +1,10 @@
 package zone.nora.slothpixel.player.stats.uhc
 
 import com.google.gson.annotations.SerializedName
+import zone.nora.slothpixel.player.stats.uhc.gamemodes.UHCGamemodes
+import zone.nora.slothpixel.player.stats.uhc.kits.UHCKits
+import zone.nora.slothpixel.player.stats.uhc.perks.UHCPerks
+import zone.nora.slothpixel.player.stats.uhc.settings.UHCSettings
 
 class UHC {
     @SerializedName("coins")
@@ -42,6 +46,21 @@ class UHC {
     @SerializedName("monthly_wins")
     val monthlyWins = 0
 
+    @SerializedName("gamemodes")
+    val gamemodes = UHCGamemodes()
+
+    @SerializedName("perks")
+    val perks = UHCPerks()
+
+    @SerializedName("kits")
+    val kits = UHCKits()
+
+    @SerializedName("settings")
+    val settings = UHCSettings()
+
     @SerializedName("saved_stats")
     val savedStats = false
+
+    @SerializedName("packages")
+    val packages = ArrayList<String>()
 }

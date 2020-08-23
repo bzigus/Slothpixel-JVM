@@ -1,9 +1,10 @@
 package zone.nora.slothpixel.player.stats.cvc
 
 import com.google.gson.annotations.SerializedName
-import zone.nora.slothpixel.player.stats.cvc.cosmetics.Cosmetics
-import zone.nora.slothpixel.player.stats.cvc.mapwins.MapWins
-import zone.nora.slothpixel.player.stats.cvc.perks.Perks
+import zone.nora.slothpixel.player.stats.cvc.cosmetics.CvcCosmetics
+import zone.nora.slothpixel.player.stats.cvc.deathmatch.CvcDeathmatch
+import zone.nora.slothpixel.player.stats.cvc.mapwins.CvcMapWins
+import zone.nora.slothpixel.player.stats.cvc.perks.CvcPerks
 
 class CvC {
     @SerializedName("coins")
@@ -52,11 +53,17 @@ class CvC {
     val shotsFired = 0
 
     @SerializedName("map_wins")
-    val mapWins = MapWins()
+    val mapWins = CvcMapWins()
+
+    @SerializedName("deathmatch")
+    val deathmatch = CvcDeathmatch()
 
     @SerializedName("perks")
-    val perks = Perks()
+    val perks = CvcPerks()
 
     @SerializedName("selected_cosmetics")
-    val selectedCosmetics = Cosmetics()
+    val selectedCosmetics = CvcCosmetics()
+
+    @SerializedName("packages")
+    val packages = ArrayList<String>()
 }

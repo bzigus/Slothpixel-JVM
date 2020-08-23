@@ -1,9 +1,10 @@
 package zone.nora.slothpixel.player.stats.pit
 
 import com.google.gson.annotations.SerializedName
-import zone.nora.slothpixel.player.stats.pit.items.Items
+import zone.nora.slothpixel.player.stats.pit.damage.PitDamage
+import zone.nora.slothpixel.player.stats.pit.items.PitItems
 import zone.nora.slothpixel.player.stats.pit.kingquest.KingQuest
-import zone.nora.slothpixel.player.stats.pit.selectedperks.SelectedPerks
+import zone.nora.slothpixel.player.stats.pit.selectedperks.PitSelectedPerks
 
 class Pit {
     @SerializedName("kills")
@@ -118,11 +119,17 @@ class Pit {
     val kingQuest = KingQuest()
 
     @SerializedName("selected_perks")
-    val selectedPerks = SelectedPerks()
+    val selectedPerks = PitSelectedPerks()
 
     @SerializedName("gold_during_prestige")
     val goldDuringPrestige = HashMap<String, Int>()
 
     @SerializedName("items")
-    val items = Items()
+    val items = PitItems()
+
+    @SerializedName("damage_dealt")
+    val damageDealt = PitDamage()
+
+    @SerializedName("damage_taken")
+    val damageTaken = PitDamage()
 }

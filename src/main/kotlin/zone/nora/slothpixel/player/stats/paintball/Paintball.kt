@@ -1,8 +1,8 @@
 package zone.nora.slothpixel.player.stats.paintball
 
 import com.google.gson.annotations.SerializedName
-import zone.nora.slothpixel.player.stats.paintball.perks.Perks
-import zone.nora.slothpixel.player.stats.paintball.votes.Votes
+import zone.nora.slothpixel.player.stats.paintball.perks.PaintballPerks
+import zone.nora.slothpixel.player.stats.paintball.votes.PaintballVotes
 
 class Paintball {
     @SerializedName("coins")
@@ -36,8 +36,11 @@ class Paintball {
     val forceFieldTime: Long = 0
 
     @SerializedName("perks")
-    val perks = Perks()
+    val perks = PaintballPerks()
 
     @SerializedName("votes")
-    val votes = Votes()
+    val votes = PaintballVotes()
+
+    @SerializedName("packages")
+    val packages = ArrayList<String>()
 }

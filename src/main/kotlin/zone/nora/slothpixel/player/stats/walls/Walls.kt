@@ -1,9 +1,11 @@
 package zone.nora.slothpixel.player.stats.walls
 
 import com.google.gson.annotations.SerializedName
-import zone.nora.slothpixel.player.stats.walls.perks.Perks
+import zone.nora.slothpixel.player.stats.walls.perks.WallsPerks
+import zone.nora.slothpixel.player.stats.walls.settings.WallsSettings
 import zone.nora.slothpixel.player.stats.walls.starters.AdvancedStarters
 import zone.nora.slothpixel.player.stats.walls.starters.BasicStarters
+import zone.nora.slothpixel.player.stats.walls.votes.WallsVotes
 
 class Walls {
     @SerializedName("assists")
@@ -58,5 +60,17 @@ class Walls {
     val advancedStarters = AdvancedStarters()
 
     @SerializedName("perks")
-    val perks = Perks()
+    val perks = WallsPerks()
+
+    @SerializedName("votes")
+    val votes = WallsVotes()
+
+    @SerializedName("settings")
+    val settings = WallsSettings()
+
+    @SerializedName("inventory")
+    val inventory = HashMap<String, String>()
+
+    @SerializedName("packages")
+    val packages = ArrayList<String>()
 }

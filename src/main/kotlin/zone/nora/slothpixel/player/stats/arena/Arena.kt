@@ -2,9 +2,9 @@ package zone.nora.slothpixel.player.stats.arena
 
 import com.google.gson.annotations.SerializedName
 import zone.nora.slothpixel.player.stats.arena.combatlevels.CombatLevels
-import zone.nora.slothpixel.player.stats.arena.gamemodes.Gamemodes
+import zone.nora.slothpixel.player.stats.arena.gamemodes.ArenaGamemodes
 import zone.nora.slothpixel.player.stats.arena.runelevels.RuneLevels
-import zone.nora.slothpixel.player.stats.arena.skills.Skills
+import zone.nora.slothpixel.player.stats.arena.skills.ArenaSkills
 
 class Arena {
     @SerializedName("coins")
@@ -19,6 +19,12 @@ class Arena {
     @SerializedName("magical_chest")
     val magicalChest = 0
 
+    @SerializedName("selected_sword")
+    val selectedSword = ""
+
+    @SerializedName("active_rune")
+    val activeRune = ""
+
     @SerializedName("keys")
     val keys = 0
 
@@ -26,7 +32,7 @@ class Arena {
     val combatTracker = 0
 
     @SerializedName("skills")
-    val skills: Skills = Skills()
+    val skills: ArenaSkills = ArenaSkills()
 
     @SerializedName("combat_levels")
     val combatLevels: CombatLevels = CombatLevels()
@@ -35,5 +41,8 @@ class Arena {
     val runeLevels: RuneLevels = RuneLevels()
 
     @SerializedName("gamemodes")
-    val gamemodes: Gamemodes = Gamemodes()
+    val gamemodes: ArenaGamemodes = ArenaGamemodes()
+
+    @SerializedName("packages")
+    val packages = ArrayList<String>()
 }

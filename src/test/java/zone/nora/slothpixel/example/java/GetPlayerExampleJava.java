@@ -2,7 +2,7 @@ package zone.nora.slothpixel.example.java;
 
 import zone.nora.slothpixel.Slothpixel;
 import zone.nora.slothpixel.player.Player;
-import zone.nora.slothpixel.player.stats.tkr.TKR;
+import zone.nora.slothpixel.player.stats.tkr.Tkr;
 
 public class GetPlayerExampleJava {
     public static void main(String[] args) {
@@ -16,7 +16,7 @@ public class GetPlayerExampleJava {
         System.out.println("Discord: " + player.getLinks().getDiscord());
 
         // Save a specific game's stats.
-        TKR tkr = player.getStats().getTkr();
+        Tkr tkr = player.getStats().getTkr();
 
         System.out.println("Coins: " + tkr.getCoins());
         System.out.println("Gold Trophies: " + tkr.getTrophies().getGold());

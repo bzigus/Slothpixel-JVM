@@ -1,10 +1,10 @@
 package zone.nora.slothpixel.player.stats.speeduhc
 
 import com.google.gson.annotations.SerializedName
-import zone.nora.slothpixel.player.stats.speeduhc.drops.Drops
+import zone.nora.slothpixel.player.stats.speeduhc.drops.SpeedUHCDrops
 import zone.nora.slothpixel.player.stats.speeduhc.gamemodes.SpeedUHCGamemodes
-import zone.nora.slothpixel.player.stats.speeduhc.mastery.Masterys
-import zone.nora.slothpixel.player.stats.speeduhc.votes.Votes
+import zone.nora.slothpixel.player.stats.speeduhc.mastery.SpeedUHCMasteries
+import zone.nora.slothpixel.player.stats.speeduhc.votes.SpeedUHCVotes
 
 class SpeedUHC {
     @SerializedName("arrows_hit")
@@ -104,16 +104,16 @@ class SpeedUHC {
     val highestWinstreak = 0
 
     @SerializedName("mastery")
-    val mastery = Masterys()
+    val mastery = SpeedUHCMasteries()
 
     @SerializedName("gamemodes")
     val gamemodes = SpeedUHCGamemodes()
 
     @SerializedName("drops")
-    val drops = Drops()
+    val drops = SpeedUHCDrops()
 
     @SerializedName("votes")
-    val votes = Votes()
+    val votes = SpeedUHCVotes()
 
     @SerializedName("packages")
     val packages = ArrayList<String>()

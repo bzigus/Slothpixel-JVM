@@ -1,11 +1,11 @@
 package zone.nora.slothpixel.player.stats.quake
 
 import com.google.gson.annotations.SerializedName
-import zone.nora.slothpixel.player.stats.quake.cosmetics.Cosmetics
-import zone.nora.slothpixel.player.stats.quake.cosmetics.Equipped
+import zone.nora.slothpixel.player.stats.quake.cosmetics.QuakeCosmetics
+import zone.nora.slothpixel.player.stats.quake.cosmetics.EquippedQuakeCosmetics
 import zone.nora.slothpixel.player.stats.quake.gamemodes.QuakeGamemodes
 import zone.nora.slothpixel.player.stats.quake.settings.QuakeSettings
-import zone.nora.slothpixel.player.stats.quake.votes.Votes
+import zone.nora.slothpixel.player.stats.quake.votes.QuakeVotes
 
 class Quake {
     @SerializedName("coins")
@@ -36,14 +36,14 @@ class Quake {
     val alternativeGunCooldownIndicator = false
 
     @SerializedName("equipped_cosmetics")
-    val equippedCosmetics = Equipped()
+    val equippedCosmetics = EquippedQuakeCosmetics()
 
     @SerializedName("cosmetics")
-    val cosmetics = Cosmetics()
+    val cosmetics = QuakeCosmetics()
 
     @SerializedName("settings")
     val settings = QuakeSettings()
 
     @SerializedName("votes")
-    val votes = Votes()
+    val votes = QuakeVotes()
 }

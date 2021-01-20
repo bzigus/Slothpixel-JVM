@@ -16,7 +16,7 @@ class SkyblockPlayerAttributes {
     val effectiveHealth = 0
 
     @SerializedName("strength")
-    val strength = 0
+    val strength = ""
 
     @SerializedName("damage_increase")
     val damageIncrease = 0.0

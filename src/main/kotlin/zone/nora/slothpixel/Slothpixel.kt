@@ -75,7 +75,7 @@ import kotlin.collections.HashMap
  * Created by Nora Cos on 14/02/20.
  */
 class Slothpixel(
-    private val url: String = "https://api.slothpixel.me/api",
+    private val url: String = "https://pixel.bugzig.us/api",
     var apiKey: String? = null
 ) {
     /**
